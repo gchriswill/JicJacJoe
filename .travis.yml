@@ -8,5 +8,5 @@ addons:
 jdk:
   - oraclejdk15
 script:
-  - ant -buildfile build.xml
+  - ant -verbose -diagnostics -buildfile build.xml
 
