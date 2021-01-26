@@ -6,7 +6,7 @@
 
 ![Version](https://img.shields.io/badge/version-0.0.1-blue.svg?style=flat )
 ![Platform](https://img.shields.io/badge/platform-CLI-blue.svg?style=flat )
-![Build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat )
+[![Build Status](https://www.travis-ci.com/gchriswill/JicJacJoe.svg?token=8efyA1QMsv1rNCzSQkn1&branch=master)](https://www.travis-ci.com/gchriswill/JicJacJoe)
 
 A tic-tac-toe game written in Java. 
 Players the game in PvC and PvP modes via IDE’s console, and/or CLI, and/or a client app. 
