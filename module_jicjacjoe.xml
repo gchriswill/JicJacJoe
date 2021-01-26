@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jicjacjoe" default="compile.module.jicjacjoe">
+  <dirname property="module.jicjacjoe.basedir" file="${ant.file.module_jicjacjoe}"/>
+  
+  <property name="module.jdk.home.jicjacjoe" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.jicjacjoe" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.jicjacjoe" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.jicjacjoe" value="-encoding UTF-8 -source 15 -target 15 ${compiler.args}"/>
+  
+  <property name="jicjacjoe.output.dir" value="${module.jicjacjoe.basedir}/out/production/JicJacJoe"/>
+  <property name="jicjacjoe.testoutput.dir" value="${module.jicjacjoe.basedir}/out/test/JicJacJoe"/>
+  
+  <path id="jicjacjoe.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jicjacjoe.module.production.classpath">
+    <path refid="${module.jdk.classpath.jicjacjoe}"/>
+  </path>
+  
+  <path id="jicjacjoe.runtime.production.module.classpath">
+    <pathelement location="${jicjacjoe.output.dir}"/>
+  </path>
+  
+  <path id="jicjacjoe.module.classpath">
+    <path refid="${module.jdk.classpath.jicjacjoe}"/>
+    <pathelement location="${jicjacjoe.output.dir}"/>
+  </path>
+  
+  <path id="jicjacjoe.runtime.module.classpath">
+    <pathelement location="${jicjacjoe.testoutput.dir}"/>
+    <pathelement location="${jicjacjoe.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jicjacjoe">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jicjacjoe">
+    <patternset refid="excluded.from.module.jicjacjoe"/>
+  </patternset>
+  
+  <path id="jicjacjoe.module.sourcepath">
+    <dirset dir="${module.jicjacjoe.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jicjacjoe" depends="compile.module.jicjacjoe.production,compile.module.jicjacjoe.tests" description="Compile module JicJacJoe"/>
+  
+  <target name="compile.module.jicjacjoe.production" depends="register.custom.compilers" description="Compile module JicJacJoe; production classes">
+    <mkdir dir="${jicjacjoe.output.dir}"/>
+    <javac2 destdir="${jicjacjoe.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jicjacjoe}/javac">
+      <compilerarg line="${compiler.args.jicjacjoe}"/>
+      <bootclasspath refid="jicjacjoe.module.bootclasspath"/>
+      <classpath refid="jicjacjoe.module.production.classpath"/>
+      <src refid="jicjacjoe.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jicjacjoe"/>
+    </javac2>
+    
+    <copy todir="${jicjacjoe.output.dir}">
+      <fileset dir="${module.jicjacjoe.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jicjacjoe.tests" depends="register.custom.compilers,compile.module.jicjacjoe.production" description="compile module JicJacJoe; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jicjacjoe" description="cleanup module">
+    <delete dir="${jicjacjoe.output.dir}"/>
+    <delete dir="${jicjacjoe.testoutput.dir}"/>
+  </target>
+</project>
