@@ -1,6 +1,10 @@
 language: java
 os: linux
 dist: xenial
+addons:
+  apt:
+    packages:
+      - ant
 jdk:
   - oraclejdk15
 script:
