@@ -49,7 +49,7 @@
   </path>
   
   
-  <target name="compile.module.jicjacjoe" depends="compile.module.jicjacjoe.production" description="Compile module JicJacJoe"/>
+  <target name="compile.module.jicjacjoe" depends="compile.module.jicjacjoe.production,compile.module.jicjacjoe.tests" description="Compile module JicJacJoe"/>
   
   <target name="compile.module.jicjacjoe.production" depends="register.custom.compilers" description="Compile module JicJacJoe; production classes">
     <mkdir dir="${jicjacjoe.output.dir}"/>
@@ -69,7 +69,7 @@
     </copy>
   </target>
   
-<!--  <target name="compile.module.jicjacjoe.tests" depends="register.custom.compilers,compile.module.jicjacjoe.production" description="compile module JicJacJoe; test classes" unless="skip.tests"/>-->
+  <target name="compile.module.jicjacjoe.tests" depends="register.custom.compilers,compile.module.jicjacjoe.production" description="compile module JicJacJoe; test classes" unless="skip.tests"/>
   
   <target name="clean.module.jicjacjoe" description="cleanup module">
     <delete dir="${jicjacjoe.output.dir}"/>
