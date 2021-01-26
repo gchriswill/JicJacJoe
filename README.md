@@ -17,7 +17,7 @@ The game’s title will be Jic-Jac-Joe.
 
 ---
 
-# Project's Repository Purpose:
+# Repository Purpose:
 
 This repo holds the source code of Jic-Jac-Joe project for [C.W. Gonzalez Melendez]'s 
 MET-CS 622 "Advanced Programming Techniques" class of the Software Development Master's degree 
