@@ -1,7 +1,9 @@
 language: java
+install: ant deps
 os: linux
 dist: xenial
 jdk:
   - oraclejdk15
 script:
   - ant -buildfile build.xml
+
