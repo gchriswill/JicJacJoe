@@ -15,9 +15,13 @@ within the developer’s own workspace, against the program itself or against ot
 to take a brake from work, engage with fellow team mates and have fun at the same time without ever leaving you workspace at all. 
 The game’s title will be Jic-Jac-Joe.
 
+### Overview Video:
+
+An in-depth and 15 minutes-long for project overview and usage guide can be found [here](#).
+
 ---
 
-# Repository Purpose:
+## Repository:
 
 This repo holds the source code of Jic-Jac-Joe project for [C.W. Gonzalez Melendez]'s 
 MET-CS 622 "Advanced Programming Techniques" class of the Software Development Master's degree 
@@ -31,16 +35,11 @@ The purposes of this repo are:
 - Host all the source code remotely on Github as remote repository.
 - Host the project website with Github Pages.
 
-### Overview Video:
-
-An in-depth and 20 minutes-long for project overview and usage guide.  
-Overview video [here](#)
-
 ---
 
 # Project Details:
 
-### Project Info:
+### __Project Info__:
 
 **Term:** Spring-O1, 2021  
 **Project:** Jic-Jac-Joe  
@@ -54,34 +53,39 @@ Overview video [here](#)
 **Website:** [Jic-Jac-Joe](#)  
 **Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)  
 
-### Current Status:
+### __Current Status__:
 
 **Current status is comming soon...**
 
-### IDE Platform:
+### __IDE Platform__:
 
-- IntelliJ IDEA Ultimate 2020.3.2
+- [IntelliJ IDEA Ultimate 2020.3.2](https://www.jetbrains.com/idea/)
 
-### Target Platforms:
+### __Target Platforms__:
 
 - CLI
 - IDE's Console
 
-### Test Devices:
+### __CI/CD Platform__:
+
+- [Travis-CI + Apache Ant](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
+- [Github Actions comming soon...](#)
+
+### __Test Devices__:
 
 - MacBook Pro (15 Inch, 2017)
 
-### Developement Devices:
+### __Developement Devices__:
 
 - MacBook Pro (15 Inch, 2017)
 
-### Google Drive Location:
+### __Google Drive Location__:
 
 **Google Drive Location is under works...**
 
 [Jic-Jac-Joe's Documents Folder Location](#)  
 
-The project's source folder includes:
+The project's documents folder includes:
 
 - Requierments/
 - Resources/
