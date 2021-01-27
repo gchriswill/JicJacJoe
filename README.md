@@ -39,7 +39,7 @@ The purposes of this repo are:
 
 # Project Details:
 
-### __Project Info__:
+### _Project Info_:
 
 **Term:** Spring-O1, 2021  
 **Project:** Jic-Jac-Joe  
@@ -53,33 +53,33 @@ The purposes of this repo are:
 **Website:** [Jic-Jac-Joe](#)  
 **Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)  
 
-### __Current Status__:
+### _Current Status_:
 
 **Current status is comming soon...**
 
-### __IDE Platform__:
+### _IDE Platform_:
 
 - [IntelliJ IDEA Ultimate 2020.3.2](https://www.jetbrains.com/idea/)
 
-### __Target Platforms__:
+### _Target Platforms_:
 
 - CLI
 - IDE's Console
 
-### __CI/CD Platform__:
+### _CI/CD Platform_:
 
 - [Travis-CI + Apache Ant](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
 - [Github Actions comming soon...](#)
 
-### __Test Devices__:
+### _Test Devices_:
 
 - MacBook Pro (15 Inch, 2017)
 
-### __Developement Devices__:
+### _Developement Devices_:
 
 - MacBook Pro (15 Inch, 2017)
 
-### __Google Drive Location__:
+### _Google Drive Location_:
 
 **Google Drive Location is under works...**
 
