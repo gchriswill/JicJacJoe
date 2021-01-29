@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public final class BoardManager {
 
-    public static enum MenuOptions {START, CREDITS, EXIT}
+    public enum MenuOptions {START, CREDITS, EXIT}
 
     private BoardManager() {}
 
