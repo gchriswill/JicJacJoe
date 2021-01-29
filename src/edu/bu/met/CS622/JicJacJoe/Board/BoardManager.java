@@ -12,6 +12,18 @@ import java.util.Scanner;
 
 public final class BoardManager {
 
+    public static String gameTitle = """
+     ▄▄▄██▀▀  ██▓  ▄████▄      ▄▄▄██▀▀ ▄▄▄       ▄████▄      ▄▄▄██▀▀ ▒█████   ▓█████
+       ▒██  ▒▓██▒ ▒██▀ ▀█        ▒██  ▒████▄    ▒██▀ ▀█        ▒██  ▒██▒  ██▒ ▓█   ▀
+       ░██  ▒▒██▒ ▒▓█    ▄       ░██  ▒██  ▀█▄  ▒▓█    ▄       ░██  ▒██░  ██▒ ▒███
+    ▓██▄██▓ ░░██░▒▒▓▓▄ ▄██    ▓██▄██▓ ░██▄▄▄▄██▒▒▓▓▄ ▄██    ▓██▄██▓ ▒██   ██░ ▒▓█  ▄
+     ▓███▒  ░░██░░▒ ▓███▀      ▓███▒  ▒▓█   ▓██░▒ ▓███▀      ▓███▒  ░ ████▓▒░▒░▒████
+     ▒▓▒▒░   ░▓  ░░ ░▒ ▒       ▒▓▒▒░  ░▒▒   ▓▒█░░ ░▒ ▒       ▒▓▒▒░  ░ ▒░▒░▒░ ░░░ ▒░
+     ▒ ░▒░  ░ ▒ ░   ░  ▒       ▒ ░▒░  ░ ░   ▒▒    ░  ▒       ▒ ░▒░    ░ ▒ ▒░ ░ ░ ░
+     ░ ░ ░  ░ ▒ ░ ░            ░ ░ ░    ░   ▒   ░            ░ ░ ░  ░ ░ ░ ▒      ░
+     ░   ░    ░   ░ ░          ░   ░        ░   ░ ░          ░   ░      ░ ░  ░   ░     
+    """;
+
     public enum MenuOptions {START, CREDITS, EXIT}
 
     private BoardManager() {}
@@ -22,19 +34,6 @@ public final class BoardManager {
     public static void displayWelcome() {
 
         System.out.println("\nWelcome to Jic Jac Joe game!\n");
-
-        String gameTitle = """
-         ▄▄▄██▀▀  ██▓  ▄████▄      ▄▄▄██▀▀ ▄▄▄       ▄████▄      ▄▄▄██▀▀ ▒█████   ▓█████
-           ▒██  ▒▓██▒ ▒██▀ ▀█        ▒██  ▒████▄    ▒██▀ ▀█        ▒██  ▒██▒  ██▒ ▓█   ▀
-           ░██  ▒▒██▒ ▒▓█    ▄       ░██  ▒██  ▀█▄  ▒▓█    ▄       ░██  ▒██░  ██▒ ▒███
-        ▓██▄██▓ ░░██░▒▒▓▓▄ ▄██    ▓██▄██▓ ░██▄▄▄▄██▒▒▓▓▄ ▄██    ▓██▄██▓ ▒██   ██░ ▒▓█  ▄
-         ▓███▒  ░░██░░▒ ▓███▀      ▓███▒  ▒▓█   ▓██░▒ ▓███▀      ▓███▒  ░ ████▓▒░▒░▒████
-         ▒▓▒▒░   ░▓  ░░ ░▒ ▒       ▒▓▒▒░  ░▒▒   ▓▒█░░ ░▒ ▒       ▒▓▒▒░  ░ ▒░▒░▒░ ░░░ ▒░
-         ▒ ░▒░  ░ ▒ ░   ░  ▒       ▒ ░▒░  ░ ░   ▒▒    ░  ▒       ▒ ░▒░    ░ ▒ ▒░ ░ ░ ░
-         ░ ░ ░  ░ ▒ ░ ░            ░ ░ ░    ░   ▒   ░            ░ ░ ░  ░ ░ ░ ▒      ░
-         ░   ░    ░   ░ ░          ░   ░        ░   ░ ░          ░   ░      ░ ░  ░   ░     
-        """;
-
         System.out.println(gameTitle);
     }
 
@@ -232,7 +231,7 @@ public final class BoardManager {
         }
 
         if (!isWinningMove && boardController.getBoard() != null) {
-            System.out.println(boardController.getBoard().getASCIIBoard());
+            System.out.println("\n" + boardController.getBoard().getASCIIBoard());
             System.out.println("\nPlayer " + boardController.getCurrentPlayer().getCharacter() + "'s turn...");
             System.out.println("Please choose an available location number from the game board");
         } else return;
@@ -305,8 +304,10 @@ public final class BoardManager {
 
     public static void displayCredits() {
 
-        System.out.println("\nGame Credits");
-        System.out.println("------------");
+        System.out.println("\n" + gameTitle);
+
+        System.out.println("\tGame Credits");
+        System.out.println("\t------------");
         System.out.println("\tTerm: Spring-O1, 2021");
         System.out.println("\tProject: Jic-Jac-Joe");
         System.out.println("\tInstructor: Eric J. Braude");
