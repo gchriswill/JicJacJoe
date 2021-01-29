@@ -11,8 +11,8 @@
 A tic-tac-toe game written in Java. 
 Players the game in PvC and PvP modes via IDE’s console, and/or CLI, and/or a client app. 
 The game helps Java developers to release stress by allowing them to play a simple game, 
-within the developer’s own workspace, against the program itself or against other player, 
-to take a brake from work, engage with fellow team mates and have fun at the same time without ever leaving you workspace at all. 
+within the developer’s own workspace, against the program itself or against another player, 
+to take a brake from work, engage with fellow teammates and have fun at the same time without ever leaving you workspace at all. 
 The game’s title will be Jic-Jac-Joe.
 
 ### Overview Video:
@@ -70,7 +70,7 @@ The purposes of this repo are:
 ### _CI/CD Platform_:
 
 - [Travis-CI + Apache Ant](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
-- [Github Actions comming soon...](#)(**Github Actions is coming soon...**)
+- [Github Actions coming soon...](#)
 
 ### _Test Devices_:
 
@@ -111,7 +111,7 @@ The project's documents folder includes:
 
 **GitHub Milestones are under works...**  
 
-Bellow, here are the Milestone cards on the and scehdule for this project. 
+Bellow, here are the Milestone cards on the and schedule for this project. 
 Each milestone represents each module requirements goals for class CS 622.
 For more information, please visit the Project and Wiki of this repository.
 
@@ -122,7 +122,7 @@ For more information, please visit the Project and Wiki of this repository.
 - [ ] [Milestone 5](#)
 - [ ] [Milestone 6](#)
 
-# Running the Jic Jac joe:
+# Running Jic Jac joe:
 
 ### IMPORTANT NOTES  
 
