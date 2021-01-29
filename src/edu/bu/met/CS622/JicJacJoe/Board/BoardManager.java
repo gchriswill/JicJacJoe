@@ -9,9 +9,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.Scanner;
 
-
+/**
+ * The BoardManager class responsibility is to serve as a mediator between the user interactions
+ * and the business logic, in which is responsibility of the BoardController class.
+ */
 public final class BoardManager {
 
+    // A String property for the welcome message and the credits scene
     public static String gameTitle = """
      ▄▄▄██▀▀  ██▓  ▄████▄      ▄▄▄██▀▀ ▄▄▄       ▄████▄      ▄▄▄██▀▀ ▒█████   ▓█████
        ▒██  ▒▓██▒ ▒██▀ ▀█        ▒██  ▒████▄    ▒██▀ ▀█        ▒██  ▒██▒  ██▒ ▓█   ▀
@@ -24,12 +28,14 @@ public final class BoardManager {
      ░   ░    ░   ░ ░          ░   ░        ░   ░ ░          ░   ░      ░ ░  ░   ░     
     """;
 
+    // Menu options enumeration
     public enum MenuOptions {START, CREDITS, EXIT}
 
+    // Restricted constructor
     private BoardManager() {}
 
     /**
-     * A function to populate the main menu to the console
+     * A function to displays the welcome message to the console
      */
     public static void displayWelcome() {
 
@@ -38,7 +44,7 @@ public final class BoardManager {
     }
 
     /**
-     * A function to populate the main menu prompt to the console
+     * A function to populate the main menu scene to the console
      */
     @SuppressWarnings("TryWithIdenticalCatches")
     public static BoardManager.MenuOptions menuPrompt(Scanner scanner) {
@@ -83,6 +89,11 @@ public final class BoardManager {
         return null;
     }
 
+    /**
+     * A function for populating a prompt asking for the game mode value
+     * @param scanner The object used to collect the user's input
+     * @return Returns the selected and validated game mode
+     */
     @SuppressWarnings("TryWithIdenticalCatches")
     public static @Nullable Board.BoardModes modePrompt(Scanner scanner) {
 
@@ -135,6 +146,11 @@ public final class BoardManager {
         return null;
     }
 
+    /**
+     * A function for populating a prompt asking for the player's game character value
+     * @param scanner The object used to collect the user's input
+     * @return Returns the selected and validated player's game character
+     */
     @SuppressWarnings({"TryWithIdenticalCatches", "ConstantConditions"})
     public static @Nullable Map<Player.PlayerKeys, Player> characterPrompt(Scanner scanner) {
 
@@ -190,6 +206,11 @@ public final class BoardManager {
         return null;
     }
 
+    /**
+     * A function for populating a prompt asking for the player's move value
+     * @param scanner The object used to collect the user's input
+     * @param boardController The object containing all the non-view business logic
+     */
     @SuppressWarnings({"TryWithIdenticalCatches", "RedundantCast", "ConstantConditions", "DuplicatedCode"})
     public static void movePrompt(Scanner scanner, BoardController boardController) {
 
@@ -290,18 +311,35 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function to display the winner of the game
+     * @param player The player that won
+     */
     public static void winnerPrompt(Player player) {
         System.out.println("\nPlayer " + player.getCharacter() + " Wins!!!");
     }
 
+    /**
+     * A function to executes the end game process
+     * @param boardController The object containing all the non-view business logic
+     */
     public static void endGameSession(BoardController boardController) {
         boardController.reset();
     }
 
+    /**
+     * A function to executes the start game process
+     * @param players The player objects that will play the game. This could be a user or the computer
+     * @param mode The selected and validated game mode
+     * @return Returns the object containing all the non-view business logic
+     */
     public static BoardController startGameSession(Map<Player.PlayerKeys, Player> players, Board.BoardModes mode) {
         return new BoardController(players, mode);
     }
 
+    /**
+     * A function to display the credits scene of the game
+     */
     public static void displayCredits() {
 
         System.out.println("\n" + gameTitle);
@@ -318,6 +356,11 @@ public final class BoardManager {
         System.out.println("\tStudent: Christopher W. Gonzalez Melendez, D.K.A. \"gchriswill\" : Student/Engineer/Developer\n\n");
     }
 
+    /**
+     * A function to route the process, based on user selection
+     * @param scanner The object used to collect the user's input
+     * @param menuOptions The object to be used to help distributing code blocks for each process' route
+     */
     public static void sceneRouter(Scanner scanner, @Nullable BoardManager.MenuOptions menuOptions) {
         if (menuOptions != null) {
             switch (menuOptions) {
@@ -339,6 +382,9 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function that serves as an execution entry point for the game
+     */
     public static void start() {
 
         displayWelcome();
@@ -352,6 +398,10 @@ public final class BoardManager {
         scanner.close();
     }
 
+    /**
+     * A function for restarting the game
+     * @param scanner The object used to collect the user's input
+     */
     public static void restart(Scanner scanner) {
         BoardManager.MenuOptions menuOptions = menuPrompt(scanner);
         sceneRouter(scanner, menuOptions);
