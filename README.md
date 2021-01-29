@@ -141,9 +141,14 @@ running and validating the project's test with JUnit in every commit pushed to t
 Basically, the project should run as it is, without any additional configuration, in the CLI or IDE's console.  
 
 To run the game in the CLI (a Unix Bash shell), navigate to the working directory and type this command in your unix terminal:  
+
 `java -cp <LOCAL WORKING DIRECTORY>/out/production/JicJacJoe edu.bu.met.CS622.JicJacJoe.Main`
 
 Don't forget to add your local path to the command.
+Also, please note that player-VS-player mode will not be available for module 1.
+
+There are 2 convenient commands available at almost every state of the game (Except in the menu, which only `exit` will be available).
+The convenient commands are: `restart` and `exit` 
 
 
 
