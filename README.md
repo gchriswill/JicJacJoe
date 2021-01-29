@@ -43,7 +43,7 @@ The purposes of this repo are:
 
 **Term:** Spring-O1, 2021  
 **Project:** Jic-Jac-Joe  
-**Instructor:** [E.J. Braude](https://www.bu.edu/met/profile/eric-j-braude/)  
+**Instructor:** [Eric J. Braude](https://www.bu.edu/met/profile/eric-j-braude/)  
 **Facilitator:** [Kuang-Jung Huang, "Michael"](#)  
 **Institution:** [Boston University's Metropolitan College](https://www.bu.edu/met/)  
 **Course:** [CS622 - Advanced Programming Techniques](http://www.bu.edu/csmet/academic-programs/courses/cs622/)  
