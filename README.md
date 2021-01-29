@@ -17,6 +17,7 @@ The game’s title will be Jic-Jac-Joe.
 
 ### Overview Video:
 
+**Overview video is coming soon...**
 An in-depth and 15 minutes-long for project overview and usage guide can be found [here](#).
 
 ---
@@ -50,12 +51,12 @@ The purposes of this repo are:
 **Program:** [Software Development M.Sc. (MSSD)](https://www.bu.edu/met/degrees-certificates/ms-software-development/)  
 **Student:** Christopher W. Gonzalez Melendez, D.K.A. "[@gchriswill](https://github.com/gchriswill)" : Student/Engineer/Developer  
 
-**Website:** [Jic-Jac-Joe](#)  
+**Website:** [Jic-Jac-Joe](#) (**Website is currently in the works and coming soon...**)  
 **Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)  
 
 ### _Current Status_:
 
-**Current status is comming soon...**
+**Current status is coming soon...**
 
 ### _IDE Platform_:
 
@@ -69,13 +70,13 @@ The purposes of this repo are:
 ### _CI/CD Platform_:
 
 - [Travis-CI + Apache Ant](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
-- [Github Actions comming soon...](#)
+- [Github Actions comming soon...](#)(**Github Actions is coming soon...**)
 
 ### _Test Devices_:
 
 - MacBook Pro (15 Inch, 2017)
 
-### _Developement Devices_:
+### _Development Devices_:
 
 - MacBook Pro (15 Inch, 2017)
 
@@ -83,11 +84,11 @@ The purposes of this repo are:
 
 **Google Drive Location is under works...**
 
-[Jic-Jac-Joe's Documents Folder Location](#)  
+[Jic-Jac-Joe's Documents Folder Location](#)(**Folder with documents is currently in the works and coming soon...**)  
 
 The project's documents folder includes:
 
-- Requierments/
+- Requirements/
 - Resources/
 - Diagrams/
 - Flows/
@@ -108,7 +109,7 @@ The project's documents folder includes:
 
 # Milestones Breakdown for Modules:
 
-**Milestones are under works...**  
+**GitHub Milestones are under works...**  
 
 Bellow, here are the Milestone cards on the and scehdule for this project. 
 Each milestone represents each module requirements goals for class CS 622.
@@ -120,3 +121,30 @@ For more information, please visit the Project and Wiki of this repository.
 - [ ] [Milestone 4](#)
 - [ ] [Milestone 5](#)
 - [ ] [Milestone 6](#)
+
+# Running the Jic Jac joe:
+
+### IMPORTANT NOTES  
+
+The project was implemented in IntelliJ IDEA and has 1 dependency, 
+which is the Java annotations library is has been included in the repository 
+and zipped folder in the assignment submission field.  
+
+Also, JUnit lib has been already integrated to the Jic Jac Joe's project for module 2, 
+but do not have any test implementations for module 1. 
+
+The project has CI/CD integration already via Travis-CI using Apache-Ant build tool, this is for 
+running and validating the project's test with JUnit in every commit pushed to the repository. 
+
+### Running
+
+Basically, the project should run as it is, without any additional configuration, in the CLI or IDE's console.  
+
+To run the game in the CLI (a Unix Bash shell), navigate to the working directory and type this command in your unix terminal:  
+`java -cp <LOCAL WORKING DIRECTORY>/out/production/JicJacJoe edu.bu.met.CS622.JicJacJoe.Main`
+
+Don't forget to add your local path to the command.
+
+
+
+
