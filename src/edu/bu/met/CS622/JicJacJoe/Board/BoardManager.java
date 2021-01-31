@@ -49,6 +49,22 @@ public final class BoardManager {
     @SuppressWarnings("TryWithIdenticalCatches")
     public static BoardManager.MenuOptions menuPrompt(Scanner scanner) {
 
+        /*
+        * INTENT: The intent of this function is to display the menu items of the game
+        * and also to collect the selected menu item;
+        *
+        * IMPORTANT NOTE: This function recursively call itself if the input is invalid or if it catches an exception;
+        *
+        * PRECONDITION: UserInput == ("start") || UserInput == "credits" || UserInput == "exit";
+        * Based on validated input from `validateMenuInput` function from the `BoardController` class;
+        *
+        * CATCHES: The function catches custom exception thrown by the `validateMenuInput` function;
+        * Also, it catches default exceptions if any arises during it's execution;
+        *
+        * RETURNS: Returns the value of MenuOptions type for further processing by `start` function;
+        *
+        * */
+
         System.out.println("\nMAIN MENU");
         System.out.println("Choose one of the following menu options:");
         System.out.println("\tStart");
@@ -80,10 +96,10 @@ public final class BoardManager {
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            return menuPrompt(scanner);
+            return menuPrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            return menuPrompt(scanner);
+            return menuPrompt(scanner); // Recursively call itself
         }
 
         return null;
@@ -96,6 +112,23 @@ public final class BoardManager {
      */
     @SuppressWarnings("TryWithIdenticalCatches")
     public static @Nullable Board.BoardModes modePrompt(Scanner scanner) {
+
+        /*
+         * INTENT: The main intent of this function is to collect the game mode chosen by the player;
+         *
+         * IMPORTANT NOTE: This function recursively call itself if the input is invalid or if it catches an exception;
+         *
+         * PRECONDITION 1: UserInput != ("exit") || UserInput == "restart";
+         *
+         * PRECONDITION 2: UserInput == ("pvc") || UserInput != "PvP";
+         * Based on validated input from `validateModeInput` function from the `BoardController` class;
+
+         * CATCHES: The function catches custom exception thrown by the `validateModeInput` function;
+         * Also, it catches default exceptions if any arises during it's execution;
+         *
+         * RETURNS: Returns the value of BoardModes type for further processing by `sceneRouter` function;
+         *
+         * */
 
         System.out.println("\nPlease choose the game mode you'd like to play: PvC or PvP");
         System.out.println("IMPORTANT NOTE: PvP is currently not available for module 1.");
@@ -137,10 +170,10 @@ public final class BoardManager {
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            return modePrompt(scanner);
+            return modePrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            return modePrompt(scanner);
+            return modePrompt(scanner); // Recursively call itself
         }
 
         return null;
@@ -149,10 +182,27 @@ public final class BoardManager {
     /**
      * A function for populating a prompt asking for the player's game character value
      * @param scanner The object used to collect the user's input
-     * @return Returns the selected and validated player's game character
+     * @return Returns the player objects wrapped in a dictionary
      */
     @SuppressWarnings({"TryWithIdenticalCatches", "ConstantConditions"})
     public static @Nullable Map<Player.PlayerKeys, Player> characterPrompt(Scanner scanner) {
+
+        /*
+         * INTENT: The main intent of this function is to collect the character chosen by the player;
+         *
+         * IMPORTANT NOTE: This function recursively call itself if the input is invalid or if it catches an exception;
+         *
+         * PRECONDITION 1: UserInput != ("exit") || UserInput == "restart";
+         *
+         * PRECONDITION 2: UserInput == ("X") || UserInput == "O";
+         * Based on validated input from `validateCharacterInput` function from the `BoardController` class;
+
+         * CATCHES: The function catches custom exception thrown by the `validateCharacterInput` function;
+         * Also, it catches default exceptions if any arises during it's execution;
+         *
+         * RETURNS: Returns a dictionary value containing 2 player objects further processing by `sceneRouter` function;
+         *
+         * */
 
         System.out.println("\nPlease choose the game character you'd like to play with: X or O");
         System.out.println("IMPORTANT NOTE: X always has the first turn... \uD83D\uDE09");
@@ -197,10 +247,10 @@ public final class BoardManager {
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            return characterPrompt(scanner);
+            return characterPrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            return characterPrompt(scanner);
+            return characterPrompt(scanner); // Recursively call itself
         }
 
         return null;
@@ -208,15 +258,43 @@ public final class BoardManager {
 
     /**
      * A function for populating a prompt asking for the player's move value
+     * This function needs strong breakdown-refactoring
      * @param scanner The object used to collect the user's input
      * @param boardController The object containing all the non-view business logic
      */
     @SuppressWarnings({"TryWithIdenticalCatches", "RedundantCast", "ConstantConditions", "DuplicatedCode"})
     public static void movePrompt(Scanner scanner, BoardController boardController) {
 
+        /*
+         * INTENT: The main intent of this function is to collect the move chosen by the player;
+         *
+         * IMPORTANT NOTE: This function recursively call itself if the input is invalid or if it catches an exception;
+         *
+         * PRECONDITION 1: UserInput != ("exit") || UserInput == "restart";
+         *
+         * PRECONDITION 2: UserInput is Integer/int type && (intInput < 1 || intInput > 9)
+         * Based on validated input from `validateLocationInput` function from the `BoardController` class;
+         *
+         * PRECONDITION 3: boardData[UserInput] != X || O
+         * Based on validated input from `validateMove` function from the `BoardController` class;
+         *
+         * POSTCONDITION 1: Performed a winning move :: boardData contains CurrentPlayerCharacter in locations
+         * 1, 2, 3 || 4, 5, 6 || 7, 8, 9 || 1, 4, 7 || 2, 5, 8 || 3, 6, 9 || 1, 5, 9 || 3, 5, 7
+         * Based on validated input from `validateWinner` function from the `BoardController` class;
+         *
+         * POSTCONDITION 2: Ran out of move :: boardData does not contains any number :: for v in boardData { not matches RegEx }
+         * Based on validated input from `validateOutOfMoves` function from the `BoardController` class;
+         *
+         * CATCHES: The function catches custom exception thrown by the `validateLocationInput` and `validateMove` functions;
+         * Also, it catches default exceptions if any arises during it's execution;
+         *
+         * */
+
+        // Gets and stores the current player for further processing within this function
         Player player = boardController.getCurrentPlayer();
         boolean isWinningMove = false;
 
+        // Conditional statements to check if this is a first move from the game's lifecycle
         if (player instanceof PlayerOne) {
             if (((PlayerOne) player).isSessionStarter() && boardController.getBoard().isBoardFirstMove()) {
                 System.out.println("\nPlayer " + boardController.getCurrentPlayer().getCharacter() + " will start this game session...\n");
@@ -224,12 +302,17 @@ public final class BoardManager {
             }
         }
 
+        // Conditional statements to check if this is a collected move from the computer and process it.
+        // Ideally, this code block should be in its own function in the BoardController and it will be
+        // moved to that location in a future module.
         if (boardController.getBoard().getBoardMode().equals(Board.BoardModes.PvC)) {
             if (player.playerType.equals(Player.PlayerType.CPU)) {
                 player.addLocation(boardController.performComputerMove());
 
+                // Stores the return value of the winning move validation from the `validateWinner`
                 isWinningMove = boardController.validateWinner();
 
+                // Conditional statements to check if this is a winning move
                 if (isWinningMove) {
                     winnerPrompt(player);
                     System.out.println(boardController.getBoard().getASCIIBoard());
@@ -238,6 +321,9 @@ public final class BoardManager {
                     return;
                 }
 
+                // Conditional statements to check if the game has no more moves available, and if so, the process it.
+                // Ideally, this code block should be in its own function in the BoardController and it will be
+                // moved to that location in a future module.
                 if (boardController.validateOutOfMoves()) {
                     System.out.println("The board has ran out of locations and no winner has been declared!");
                     System.out.println("Restarting the game...");
@@ -246,11 +332,15 @@ public final class BoardManager {
                     return;
                 }
 
+                // Executes next turn to swap the payer move logic
                 boardController.setNextTurn();
+
+                // Recursively call itself for the next turn logic
                 movePrompt(scanner, boardController);
             }
         }
 
+        // Conditional statements to check if this is a winning move
         if (!isWinningMove && boardController.getBoard() != null) {
             System.out.println("\n" + boardController.getBoard().getASCIIBoard());
             System.out.println("\nPlayer " + boardController.getCurrentPlayer().getCharacter() + "'s turn...");
@@ -278,8 +368,10 @@ public final class BoardManager {
             boardController.performPlayerMove(intInput);
             player.addLocation(intInput);
 
+            // Stores the return value of the winning move validation from the `validateWinner`
             isWinningMove = boardController.validateWinner();
 
+            // Conditional statements to check if this is a winning move
             if (isWinningMove) {
                 winnerPrompt(player);
                 System.out.println(boardController.getBoard().getASCIIBoard());
@@ -288,6 +380,9 @@ public final class BoardManager {
                 return;
             }
 
+            // Conditional statements to check if the game has no more moves available, and if so, the process it.
+            // Ideally, this code block should be in its own function in the BoardController and it will be
+            // moved to that location in a future module.
             if (boardController.validateOutOfMoves()) {
                 System.out.println("The board has ran out of locations and no winner has been declared!");
                 System.out.println("Restarting the game...");
@@ -296,18 +391,21 @@ public final class BoardManager {
                 return;
             }
 
+            // Executes next turn to swap the payer move logic
             boardController.setNextTurn();
+
+            // Recursively call itself for the next turn logic
             movePrompt(scanner, boardController);
 
         } catch (NumberFormatException e) { // Catch a specific Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            movePrompt(scanner, boardController);
+            movePrompt(scanner, boardController); // Recursively call itself
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            movePrompt(scanner, boardController);
+            movePrompt(scanner, boardController); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
             System.out.println(e.getLocalizedMessage());
-            movePrompt(scanner, boardController);
+            movePrompt(scanner, boardController); // Recursively call itself
         }
     }
 
