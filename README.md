@@ -56,7 +56,23 @@ The purposes of this repo are:
 
 ### _Current Status_:
 
-**Current status is coming soon...**
+**Performing development for module 2 requirements**
+
+### _Branch Structure/Strategy_:
+
+- master: The released source code for grading
+    - module1: All requirements for 622's Module 1 (GitHub Milestone 1)
+    - module2: All requirements for 622's Module 2 (GitHub Milestone 2)
+    - module3: All requirements for 622's Module 3 (GitHub Milestone 3)
+    - module4: All requirements for 622's Module 4 (GitHub Milestone 4)
+    - module5: All requirements for 622's Module 5 (GitHub Milestone 5)
+    - module6: All requirements for 622's Module 6 (GitHub Milestone 6)
+    - feature/*: Branches with feature prefix will contain specific individual and single feature
+    - release/*: Branches with release prefix will contain the requirements of a specific module completed and ready for testing  
+    
+
+Each branch contains the specific requirements for the state module and completes the designated GitHub Milestone.  
+Each GitHub Milestone track all the respective GitHub Issues/requirements for the module/branch.  
 
 ### _IDE Platform_:
 
