@@ -22,7 +22,7 @@ public class Board {
     private PlayerTwo playerTwo;
 
     // The board mode object
-    private BoardModes boardMode;
+    private final BoardModes boardMode;
 
     // A property for checking if the board has processed the first move
     private boolean boardFirstMove = true;
