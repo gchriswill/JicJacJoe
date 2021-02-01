@@ -52,7 +52,7 @@ The purposes of this repo are:
 **Student:** Christopher W. Gonzalez Melendez, D.K.A. "[@gchriswill](https://github.com/gchriswill)" : Student/Engineer/Developer  
 
 **Website:** [Jic-Jac-Joe](#) (**Website is currently in the works and coming soon...**)  
-**Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)  
+**Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)
 
 ### _Current Status_:
 
