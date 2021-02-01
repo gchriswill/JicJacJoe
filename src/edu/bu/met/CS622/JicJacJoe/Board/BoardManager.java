@@ -297,7 +297,7 @@ public final class BoardManager {
         // Conditional statements to check if this is a first move from the game's lifecycle
         if (player instanceof PlayerOne) {
             if (((PlayerOne) player).isSessionStarter() && boardController.getBoard().isBoardFirstMove()) {
-                System.out.println("\nPlayer " + boardController.getCurrentPlayer().getCharacter() + " will start this game session...\n");
+                System.out.println("\nPlayer " + player.getCharacter() + " will start this game session...\n");
                 boardController.getBoard().disableBoardFirstMove();
             }
         }
