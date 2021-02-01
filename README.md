@@ -17,7 +17,7 @@ The game’s title will be Jic-Jac-Joe.
 
 ### Overview Video:
 
-**Overview video is coming soon...**
+**Overview video is coming soon...**  
 An in-depth and 15 minutes-long for project overview and usage guide can be found [here](#).
 
 ---
@@ -132,7 +132,7 @@ Each milestone represents each module requirements goals for class CS 622.
 For more information, please visit the Project and Wiki of this repository.
 
 - [ ] [Milestone 1](#)
-- [ ] [Milestone 2](#)
+- [ ] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
 - [ ] [Milestone 3](#)
 - [ ] [Milestone 4](#)
 - [ ] [Milestone 5](#)
