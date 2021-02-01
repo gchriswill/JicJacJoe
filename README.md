@@ -98,8 +98,6 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 ### _Google Drive Location_:
 
-**Google Drive Location is under works...**
-
 [Jic-Jac-Joe's Documents Folder Location](https://drive.google.com/drive/u/1/folders/0ABEHSS4VkZJqUk9PVA)  
 
 The project's documents folder includes:
