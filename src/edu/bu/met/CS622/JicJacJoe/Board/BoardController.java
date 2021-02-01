@@ -1,11 +1,9 @@
 package edu.bu.met.CS622.JicJacJoe.Board;
 
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
-import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Random;
