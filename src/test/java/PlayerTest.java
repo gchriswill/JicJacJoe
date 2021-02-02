@@ -10,5 +10,6 @@ class PlayerTest {
 
         Player player = new PlayerOne("X", Player.PlayerType.USER);
         Assertions.assertFalse(player.getCharacter().isEmpty());
+        Assertions.fail();
     }
 }
