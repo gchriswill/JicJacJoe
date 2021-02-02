@@ -85,7 +85,7 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 ### _CI/CD Platform_:
 
-- [Travis-CI + Apache Ant](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
+- [Travis-CI + Maven 3 + JUnit 5](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
 - [Github Actions coming soon...](#)
 
 ### _Test Devices_:
