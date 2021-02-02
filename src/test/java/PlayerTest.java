@@ -8,6 +8,9 @@ class PlayerTest {
     @Test
     void getCharacter() {
         Player player = new PlayerOne("X", Player.PlayerType.USER);
-        Assertions.assertFalse(player.getCharacter().isEmpty());
+        String character = player.getCharacter();
+
+        Assertions.assertNotNull(character);
+        Assertions.assertFalse(character.trim().isEmpty());
     }
 }
