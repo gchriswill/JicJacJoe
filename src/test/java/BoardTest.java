@@ -2,6 +2,7 @@ import edu.bu.met.CS622.JicJacJoe.Board.Board;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,5 +57,13 @@ class BoardTest {
 
         Assertions.assertNotNull(board.getPlayerByKey(Player.PlayerKeys.TWO));
         Assertions.assertTrue(board.getPlayerByKey(Player.PlayerKeys.TWO) instanceof PlayerTwo);
+    }
+
+    @AfterEach
+    void tearDown() {
+        board = null;
+        playerOne = null;
+        playerTwo = null;
+        players = null;
     }
 }
