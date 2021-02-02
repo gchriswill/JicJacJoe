@@ -7,9 +7,7 @@ class PlayerTest {
 
     @Test
     void getCharacter() {
-
         Player player = new PlayerOne("X", Player.PlayerType.USER);
         Assertions.assertFalse(player.getCharacter().isEmpty());
-        Assertions.fail();
     }
 }
