@@ -136,7 +136,7 @@ For more information, please visit the Project and Wiki of this repository.
 - [ ] [Milestone 5](#)
 - [ ] [Milestone 6](#)
 
-# Running Jic Jac joe:
+# Running Jic Jac Joe:
 
 ### IMPORTANT NOTES  
 
