@@ -30,17 +30,17 @@ class BoardControllerTest {
     }
 
     @Test
-    void getBoard() { // Instance method :: Needs a BoardController object
+    void getBoard() {
         Assertions.assertNotNull(boardController.getBoard());
     }
 
     @Test
-    void getCurrentPlayer() { // Instance method :: Needs a BoardController object
+    void getCurrentPlayer() {
         Assertions.assertNotNull(boardController.getCurrentPlayer());
     }
 
     @Test
-    void validateMenuInput() { // Static
+    void validateMenuInput() {
         Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("Start"));
         Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("Credits"));
         Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("exit"));
@@ -49,14 +49,14 @@ class BoardControllerTest {
     }
 
     @Test
-    void validateModeInput() { // Static
+    void validateModeInput() {
         Assertions.assertDoesNotThrow(() -> BoardController.validateModeInput("PvC"));
 
         Assertions.assertThrows(IllegalUserInputException.class, () -> BoardController.validateModeInput(INTENDED_WRONG_INPUT));
     }
 
     @Test
-    void validateCharacterInput() { // Static
+    void validateCharacterInput() {
         Assertions.assertDoesNotThrow(() -> BoardController.validateCharacterInput("X"));
         Assertions.assertDoesNotThrow(() -> BoardController.validateCharacterInput("O"));
 
@@ -64,7 +64,7 @@ class BoardControllerTest {
     }
 
     @Test
-    void validateLocationInput() { // Static
+    void validateLocationInput() {
 
         Assertions.assertDoesNotThrow(() -> BoardController.validateLocationInput("3"));
 
@@ -84,7 +84,6 @@ class BoardControllerTest {
 
     @Test
     void validateWinner() {
-        // 1, 4, 7 || 2, 5, 8 || 3, 6, 9 || 1, 5, 9 || 3, 5, 7
 
         // 1, 2, 3
         boardController.getBoard().boardData = new HashMap<>() {{
@@ -98,7 +97,7 @@ class BoardControllerTest {
             put(8, " 8");
             put(9, " 9");
         }};
-        ;
+
         boardController.getBoard().boardData.replace(1, " X");
         boardController.getBoard().boardData.replace(2, " X");
         boardController.getBoard().boardData.replace(3, " X");
@@ -117,7 +116,7 @@ class BoardControllerTest {
             put(8, " 8");
             put(9, " 9");
         }};
-        ;
+
         boardController.getBoard().boardData.replace(1, " X");
         boardController.getBoard().boardData.replace(2, " O");
         boardController.getBoard().boardData.replace(3, " 2");
@@ -136,7 +135,8 @@ class BoardControllerTest {
             put(7, " 7");
             put(8, " 8");
             put(9, " 9");
-        }};;
+        }};
+
         boardController.getBoard().boardData.replace(4, " X");
         boardController.getBoard().boardData.replace(5, " X");
         boardController.getBoard().boardData.replace(6, " X");
@@ -155,6 +155,7 @@ class BoardControllerTest {
             put(8, " 8");
             put(9, " 9");
         }};
+
         boardController.getBoard().boardData.replace(4, " X");
         boardController.getBoard().boardData.replace(5, " 1");
         boardController.getBoard().boardData.replace(6, " O");
@@ -213,6 +214,7 @@ class BoardControllerTest {
             put(8, " 8");
             put(9, " 9");
         }};
+
         boardController.getBoard().boardData.replace(1, " X");
         boardController.getBoard().boardData.replace(4, " X");
         boardController.getBoard().boardData.replace(7, " X");
@@ -270,6 +272,7 @@ class BoardControllerTest {
             put(8, " 8");
             put(9, " 9");
         }};
+
         boardController.getBoard().boardData.replace(2, " X");
         boardController.getBoard().boardData.replace(5, " O");
         boardController.getBoard().boardData.replace(8, " O");
