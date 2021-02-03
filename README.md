@@ -17,7 +17,7 @@ The game’s title will be Jic-Jac-Joe.
 
 ### Overview Video:
 
-**Overview video is coming soon...**
+**Overview video is coming soon...**  
 An in-depth and 15 minutes-long for project overview and usage guide can be found [here](#).
 
 ---
@@ -52,7 +52,7 @@ The purposes of this repo are:
 **Student:** Christopher W. Gonzalez Melendez, D.K.A. "[@gchriswill](https://github.com/gchriswill)" : Student/Engineer/Developer  
 
 **Website:** [Jic-Jac-Joe](#) (**Website is currently in the works and coming soon...**)  
-**Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)  
+**Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)
 
 ### _Current Status_:
 
@@ -85,7 +85,7 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 ### _CI/CD Platform_:
 
-- [Travis-CI + Apache Ant](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
+- [Travis-CI + Maven 3 + JUnit 5](https://www.travis-ci.com/github/gchriswill/JicJacJoe)
 - [Github Actions coming soon...](#)
 
 ### _Test Devices_:
@@ -98,9 +98,7 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 ### _Google Drive Location_:
 
-**Google Drive Location is under works...**
-
-[Jic-Jac-Joe's Documents Folder Location](#)(**Folder with documents is currently in the works and coming soon...**)  
+[Jic-Jac-Joe's Documents Folder Location](https://drive.google.com/drive/u/1/folders/0ABEHSS4VkZJqUk9PVA)  
 
 The project's documents folder includes:
 
@@ -131,14 +129,14 @@ Bellow, here are the Milestone cards on the and schedule for this project.
 Each milestone represents each module requirements goals for class CS 622.
 For more information, please visit the Project and Wiki of this repository.
 
-- [ ] [Milestone 1](#)
-- [ ] [Milestone 2](#)
+- [x] [Milestone 1](#)
+- [x] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
 - [ ] [Milestone 3](#)
 - [ ] [Milestone 4](#)
 - [ ] [Milestone 5](#)
 - [ ] [Milestone 6](#)
 
-# Running Jic Jac joe:
+# Running Jic Jac Joe:
 
 ### IMPORTANT NOTES  
 
@@ -166,7 +164,7 @@ Also, don't forget to build the project first...
 Please note that player-VS-player mode will not be available for module 1.
 
 There are 2 convenient commands available at almost every state of the game (Except in the menu, which only `exit` will be available).
-The convenient commands are: `restart` and `exit` 
+The convenient commands are: `restart`, `save` and `exit`. 
 
 
 
