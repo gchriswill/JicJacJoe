@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("UnnecessaryLocalVariable")
 class BoardControllerTest {
 
     static final String INTENDED_WRONG_INPUT = "INTENDED_WRONG_INPUT";
@@ -26,7 +27,7 @@ class BoardControllerTest {
         playerOne = new PlayerOne("X", Player.PlayerType.USER);
         playerTwo = new PlayerTwo("O", Player.PlayerType.USER);
         players = Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
-        boardController = new BoardController(players, Board.BoardModes.PvC);
+        boardController = new BoardController(players, Board.BoardModes.PVC);
     }
 
     @Test
@@ -42,8 +43,9 @@ class BoardControllerTest {
     @Test
     void validateMenuInput() {
         Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("Start"));
+        Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("Load"));
         Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("Credits"));
-        Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("exit"));
+        Assertions.assertDoesNotThrow(() -> BoardController.validateMenuInput("Exit"));
 
         Assertions.assertThrows(IllegalUserInputException.class, () -> BoardController.validateMenuInput(INTENDED_WRONG_INPUT));
     }
@@ -174,7 +176,7 @@ class BoardControllerTest {
             put(7, " 7");
             put(8, " 8");
             put(9, " 9");
-        }};;
+        }};
 
         boardController.getBoard().boardData.replace(7, " X");
         boardController.getBoard().boardData.replace(8, " X");
@@ -311,6 +313,7 @@ class BoardControllerTest {
             put(8, " 8");
             put(9, " 9");
         }};
+
         boardController.getBoard().boardData.replace(3, " X");
         boardController.getBoard().boardData.replace(6, " 3");
         boardController.getBoard().boardData.replace(9, " O");

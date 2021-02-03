@@ -21,7 +21,7 @@ class BoardTest {
         playerOne = new PlayerOne("X", Player.PlayerType.USER);
         playerTwo = new PlayerTwo("O", Player.PlayerType.USER);
         players = Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
-        board = new Board(players, Board.BoardModes.PvC);
+        board = new Board(players, Board.BoardModes.PVC);
     }
 
     @Test
@@ -40,7 +40,7 @@ class BoardTest {
     @Test
     void getBoardMode() {
         Assertions.assertNotNull(board.getBoardMode());
-        Assertions.assertEquals(board.getBoardMode(), Board.BoardModes.PvC);
+        Assertions.assertEquals(board.getBoardMode(), Board.BoardModes.PVC);
     }
 
     @Test

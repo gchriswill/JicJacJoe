@@ -1,11 +1,17 @@
 package edu.bu.met.CS622.JicJacJoe.Board;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -29,18 +35,26 @@ public final class BoardManager {
     """;
 
     // Menu options enumeration
-    public enum MenuOptions {START, CREDITS, EXIT}
+    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
 
     // Restricted constructor
     private BoardManager() {}
 
     /**
-     * A function to displays the welcome message to the console
+     * A function to display the welcome message to the console
      */
     public static void displayWelcome() {
 
         System.out.println("\nWelcome to Jic Jac Joe game!\n");
         System.out.println(gameTitle);
+    }
+
+    /**
+     * A function to display the save confirmation message to the console
+     */
+    public static void displaySaved() {
+        System.out.println("\nYour game session has been saved\n");
+        System.out.println("\nThanks for playing checking Jic Jac Joe game! \uD83D\uDE09 \uD83D\uDC4D \n");
     }
 
     /**
@@ -68,6 +82,7 @@ public final class BoardManager {
         System.out.println("\nMAIN MENU");
         System.out.println("Choose one of the following menu options:");
         System.out.println("\tStart");
+        System.out.println("\tLoad");
         System.out.println("\tCredits");
         System.out.println("\tExit\n");
 
@@ -80,18 +95,23 @@ public final class BoardManager {
 
                 // Case start for selection from the menu options
                 case "start" -> {
-                    return BoardManager.MenuOptions.START;
+                    return MenuOptions.START;
                 }
 
                 // Case credits for selection from the menu options
                 case "credits" -> {
-                    return BoardManager.MenuOptions.CREDITS;
+                    return MenuOptions.CREDITS;
                 }
 
                 // Case exit for selection from the menu options
                 case "exit" -> {
-                    return BoardManager.MenuOptions.EXIT;
+                    return MenuOptions.EXIT;
                 }
+            }
+
+            // Case load for selection from the menu options
+            if (stringInput.trim().equalsIgnoreCase("load")) {
+                return MenuOptions.LOAD;
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
@@ -153,7 +173,7 @@ public final class BoardManager {
             switch (stringInput.trim().toLowerCase()) {
 
                 // Case for selection PvC from the game modes
-                case "pvc" -> mode = Board.BoardModes.PvC;
+                case "pvc" -> mode = Board.BoardModes.PVC;
 
                 // Case for selection PvP from the game modes
                 case "pvp" -> {
@@ -256,6 +276,8 @@ public final class BoardManager {
         return null;
     }
 
+
+
     /**
      * A function for populating a prompt asking for the player's move value
      * This function needs strong breakdown-refactoring
@@ -305,7 +327,7 @@ public final class BoardManager {
         // Conditional statements to check if this is a collected move from the computer and process it.
         // Ideally, this code block should be in its own function in the BoardController and it will be
         // moved to that location in a future module.
-        if (boardController.getBoard().getBoardMode().equals(Board.BoardModes.PvC)) {
+        if (boardController.getBoard().getBoardMode().equals(Board.BoardModes.PVC)) {
             if (player.playerType.equals(Player.PlayerType.CPU)) {
                 player.addLocation(boardController.performComputerMove());
 
@@ -357,6 +379,14 @@ public final class BoardManager {
             }
 
             if (stringInput.trim().equalsIgnoreCase("restart")) {
+                endGameSession(boardController);
+                restart(scanner);
+                return;
+            }
+
+            if (stringInput.trim().equalsIgnoreCase("save")) {
+                saveSession(boardController);
+                displaySaved();
                 endGameSession(boardController);
                 restart(scanner);
                 return;
@@ -469,6 +499,11 @@ public final class BoardManager {
                     BoardController boardController = startGameSession(players, mode);
                     movePrompt(scanner, boardController);
                 }
+
+                case LOAD -> {
+                    loadSession(scanner);
+                }
+
                 case CREDITS -> {
                     displayCredits();
                     BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
@@ -478,6 +513,86 @@ public final class BoardManager {
                 case EXIT -> System.exit(0);
             }
         }
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static void saveSession(BoardController boardController) {
+
+        Gson gson = new Gson();
+        Type gsonType = new TypeToken<HashMap>(){}.getType();
+
+        Board board = boardController.getBoard();
+
+        Map<String, String> sessionMap = new HashMap<>() {{
+            put("savedMode", board.getBoardMode().toString());
+            put("savedTurn", board.playerTurn.toString());
+            put("savedType", boardController.getCurrentPlayer().playerType.toString());
+            put("savedCharacter", boardController.getCurrentPlayer().getCharacter());
+            put("boardData", boardController.getBoard().getBoardJson());
+        }};
+
+        String sessionString = gson.toJson(sessionMap, gsonType);
+
+        try {
+            FileWriter myWriter = new FileWriter("saved.jicjacjoe");
+            myWriter.write(sessionString);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadSession(Scanner scanner) {
+
+        Board.BoardModes mode;
+        Player.PlayerKeys turn;
+        Map<Player.PlayerKeys, Player> players;
+        String rawBoard = "";
+
+        try {
+            JsonReader getLocalJsonFile = new JsonReader(new FileReader("saved.jicjacjoe"));
+            Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
+
+            Map<String, String> jsonMap1 = new Gson().fromJson(getLocalJsonFile, TokenTypeOut);
+            Player.PlayerType playerType = Player.PlayerType.valueOf(jsonMap1.get("savedType"));
+            players = loadCharacters(jsonMap1.get("savedCharacter"), playerType);
+
+            turn = Player.PlayerKeys.valueOf(jsonMap1.get("savedTurn"));
+            mode = Board.BoardModes.valueOf(jsonMap1.get("savedMode"));
+            rawBoard = jsonMap1.get("boardData");
+
+            Type TokenTypeOutIn = new TypeToken<Map<Integer, String>>(){}.getType();
+            Map<Integer, String> jsonMap2 = new Gson().fromJson(rawBoard, TokenTypeOutIn);
+
+            BoardController boardController = startGameSession(players, mode);
+            boardController.getBoard().playerTurn = turn;
+            boardController.getBoard().boardData = jsonMap2;
+
+            movePrompt(scanner, boardController);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+            sceneRouter(scanner, menuOptionsInner);
+        }
+    }
+
+    @SuppressWarnings({"DuplicatedCode", "DuplicateExpressions"})
+    public static Map<Player.PlayerKeys, Player> loadCharacters(String character, Player.PlayerType type) {
+
+        PlayerOne playerOne = null;
+        PlayerTwo playerTwo = null;
+
+        if (character.trim().equalsIgnoreCase("x")) {
+            playerOne = new PlayerOne(character, type);
+            playerTwo = new PlayerTwo("O", type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER);
+        } else {
+            playerTwo = new PlayerTwo("O", type);
+            playerOne = new PlayerOne(character, type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER);
+        }
+
+        return Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
     }
 
     /**

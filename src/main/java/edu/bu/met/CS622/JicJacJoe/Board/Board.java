@@ -1,8 +1,11 @@
 package edu.bu.met.CS622.JicJacJoe.Board;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +16,7 @@ import java.util.Map;
 public class Board {
 
     // The enum for identifying the game modes
-    public enum BoardModes {PvC, PvP}
+    public enum BoardModes {PVC, PVP}
 
     // The player one object
     private PlayerOne playerOne;
@@ -139,5 +142,12 @@ public class Board {
             put(8, " 8");
             put(9, " 9");
         }};
+    }
+
+    @SuppressWarnings("rawtypes")
+    public String getBoardJson() {
+        Gson gson = new Gson();
+        Type gsonType = new TypeToken<HashMap>(){}.getType();
+        return gson.toJson(boardData, gsonType);
     }
 }

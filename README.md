@@ -129,8 +129,8 @@ Bellow, here are the Milestone cards on the and schedule for this project.
 Each milestone represents each module requirements goals for class CS 622.
 For more information, please visit the Project and Wiki of this repository.
 
-- [ ] [Milestone 1](#)
-- [ ] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
+- [x] [Milestone 1](#)
+- [x] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
 - [ ] [Milestone 3](#)
 - [ ] [Milestone 4](#)
 - [ ] [Milestone 5](#)
@@ -164,7 +164,7 @@ Also, don't forget to build the project first...
 Please note that player-VS-player mode will not be available for module 1.
 
 There are 2 convenient commands available at almost every state of the game (Except in the menu, which only `exit` will be available).
-The convenient commands are: `restart` and `exit` 
+The convenient commands are: `restart`, `save` and `exit`. 
 
 
 
