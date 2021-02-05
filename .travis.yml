@@ -1,6 +1,0 @@
-language: java
-os: linux
-dist: xenial
-jdk:
-  - oraclejdk15
-
