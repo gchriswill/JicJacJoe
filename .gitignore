@@ -33,9 +33,9 @@
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
  .idea/artifacts
- compiler.xml
+ .idea/compiler.xml
  .idea/jarRepositories.xml
- */modules.xml
+ .idea/modules.xml
  .idea/*.iml
 /**/modules
  *.iml
@@ -76,7 +76,7 @@ fabric.properties
 
 # Default ignored files
 /shelf/
-/workspace.xml
+.idea/workspace.xml
 
 # Datasource local storage ignored files
 /dataSources/
@@ -115,7 +115,7 @@ hs_err_pid*
 
 
 #MAVEN - GITIGNORE
-/**/target
+**/target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
