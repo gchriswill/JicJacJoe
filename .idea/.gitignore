@@ -35,9 +35,9 @@
  .idea/artifacts
  compiler.xml
  .idea/jarRepositories.xml
- /modules.xml
+ */modules.xml
  .idea/*.iml
- .idea/modules
+/**/modules
  *.iml
  *.ipr
 
@@ -115,7 +115,7 @@ hs_err_pid*
 
 
 #MAVEN - GITIGNORE
-target/
+/**/target
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
