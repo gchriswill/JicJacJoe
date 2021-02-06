@@ -573,18 +573,18 @@ public final class BoardManager {
         }
     }
 
-    @SuppressWarnings({"DuplicatedCode", "DuplicateExpressions"})
     public static Map<Player.PlayerKeys, Player> loadCharacters(String character, Player.PlayerType type) {
 
         PlayerOne playerOne = null;
         PlayerTwo playerTwo = null;
+        Player.PlayerType conditionalType = type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER;
 
         if (character.trim().equalsIgnoreCase("x")) {
             playerOne = new PlayerOne(character, type);
-            playerTwo = new PlayerTwo("O", type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER);
+            playerTwo = new PlayerTwo("O", conditionalType);
         } else {
             playerTwo = new PlayerTwo("O", type);
-            playerOne = new PlayerOne(character, type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER);
+            playerOne = new PlayerOne(character, conditionalType);
         }
 
         return Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
