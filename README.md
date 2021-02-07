@@ -9,7 +9,7 @@
 [![Build Status](https://www.travis-ci.com/gchriswill/JicJacJoe.svg?token=8efyA1QMsv1rNCzSQkn1&branch=master)](https://www.travis-ci.com/gchriswill/JicJacJoe)
 
 A tic-tac-toe game written in Java. 
-Players the game in PvC and PvP modes via IDE’s console, and/or CLI, and/or a client app. 
+Players the game in PvC and PvP modes via an IDE’s console, and/or CLI, and/or a client app. 
 The game helps Java developers to release stress by allowing them to play a simple game, 
 within the developer’s own workspace, against the program itself or against another player, 
 to take a brake from work, engage with fellow teammates and have fun at the same time without ever leaving you workspace at all. 
@@ -141,7 +141,7 @@ For more information, please visit the Project and Wiki of this repository.
 ### IMPORTANT NOTES  
 
 The project was implemented in IntelliJ IDEA and has 1 dependency, 
-which is the Java annotations library is has been included in the repository 
+which is the Java annotations' library is has been included in the repository 
 and zipped folder in the assignment submission field.  
 
 Also, JUnit lib has been already integrated to the Jic Jac Joe's project for module 2, 
@@ -163,8 +163,11 @@ Also, don't forget to build the project first...
 
 Please note that player-VS-player mode will not be available for module 1.
 
-There are 2 convenient commands available at almost every state of the game (Except in the menu, which only `exit` will be available).
-The convenient commands are: `restart`, `save` and `exit`. 
+There are 3 convenient commands available at different stages:  
+
+- `Save` Available during a current game session  
+- `Restart` Available at all time except in the main menu
+- `Exit` Available during all times
 
 
 
