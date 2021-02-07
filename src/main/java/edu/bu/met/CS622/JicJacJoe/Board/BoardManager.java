@@ -511,6 +511,11 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function to save a current game session from a given BoardController object
+     * The game data is saved as raw JSON string to a file with custom file extension `.jicjacjoe`
+     * @param boardController The BoardController object to save the current game session from
+     */
     @SuppressWarnings("rawtypes")
     public static void saveSession(BoardController boardController) {
 
@@ -539,6 +544,11 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function to load a saved game session from a given scanner object
+     * The game session if loaded from raw JSON string data in a file with custom file extension `.jicjacjoe`
+     * @param scanner The scanner object to load the game session from
+     */
     public static void loadSession(Scanner scanner) {
 
         Board.BoardModes mode;
@@ -580,6 +590,12 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function to load the players objects from given string characters and type
+     * @param character The character string to create the player object from
+     * @param type The type object for the player object
+     * @return Returns a list of player objects
+     */
     public static PlayerList<Player> loadCharacters(String character, Player.PlayerType type) {
 
         PlayerList<Player> players = new PlayerList<>();
