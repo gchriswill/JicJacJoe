@@ -4,12 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -201,8 +204,8 @@ public final class BoardManager {
      * @param scanner The object used to collect the user's input
      * @return Returns the player objects wrapped in a dictionary
      */
-    @SuppressWarnings({"TryWithIdenticalCatches", "ConstantConditions"})
-    public static @Nullable Map<Player.PlayerKeys, Player> characterPrompt(Scanner scanner) {
+    @SuppressWarnings({"TryWithIdenticalCatches"})
+    public static @Nullable PlayerList<Player> characterPrompt(Scanner scanner) {
 
         /*
          * INTENT: The main intent of this function is to collect the character chosen by the player;
@@ -224,8 +227,7 @@ public final class BoardManager {
         System.out.println("\nPlease choose the game character you'd like to play with: X or O");
         System.out.println("IMPORTANT NOTE: X always has the first turn... \uD83D\uDE09");
 
-        PlayerOne playerOne = null;
-        PlayerTwo playerTwo = null;
+        PlayerList<Player> players = new PlayerList<>();
 
         try {
 
@@ -247,19 +249,19 @@ public final class BoardManager {
 
                 // Case for selection PvC from the game modes
                 case "x" -> {
-                    playerOne = new PlayerOne("X", Player.PlayerType.USER);
-                    playerTwo = new PlayerTwo("O", Player.PlayerType.CPU);
+                    players.add(new PlayerOne("X", Player.PlayerType.USER));
+                    players.add(new PlayerTwo("O", Player.PlayerType.CPU));
                 }
 
                 // Case for selection PvP from the game modes
                 case "o" -> {
-                    playerOne = new PlayerOne("X", Player.PlayerType.CPU);
-                    playerTwo = new PlayerTwo("O", Player.PlayerType.USER);
+                    players.add(new PlayerOne("X", Player.PlayerType.CPU));
+                    players.add(new PlayerTwo("O", Player.PlayerType.USER));
                 }
             }
 
-            if (playerOne != null && playerTwo != null) {
-                return Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
+            if (!players.isEmpty()) {
+                return players;
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
@@ -456,7 +458,7 @@ public final class BoardManager {
      * @param mode The selected and validated game mode
      * @return Returns the object containing all the non-view business logic
      */
-    public static BoardController startGameSession(Map<Player.PlayerKeys, Player> players, Board.BoardModes mode) {
+    public static BoardController startGameSession(PlayerList<Player> players, Board.BoardModes mode) {
         return new BoardController(players, mode);
     }
 
@@ -489,7 +491,7 @@ public final class BoardManager {
             switch (menuOptions) {
                 case START -> {
                     Board.BoardModes mode = modePrompt(scanner);
-                    Map<Player.PlayerKeys, Player> players = characterPrompt(scanner);
+                    @Nullable PlayerList<Player> players = characterPrompt(scanner);
 
                     BoardController boardController = startGameSession(players, mode);
                     movePrompt(scanner, boardController);
@@ -540,7 +542,7 @@ public final class BoardManager {
 
         Board.BoardModes mode;
         Player.PlayerKeys turn;
-        Map<Player.PlayerKeys, Player> players;
+        PlayerList<Player> players;
         String rawBoard;
 
         try {
@@ -571,21 +573,20 @@ public final class BoardManager {
         }
     }
 
-    public static Map<Player.PlayerKeys, Player> loadCharacters(String character, Player.PlayerType type) {
+    public static PlayerList<Player> loadCharacters(String character, Player.PlayerType type) {
 
-        PlayerOne playerOne;
-        PlayerTwo playerTwo;
+        PlayerList<Player> players = new PlayerList<>();
         Player.PlayerType conditionalType = type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER;
 
         if (character.trim().equalsIgnoreCase("x")) {
-            playerOne = new PlayerOne(character, type);
-            playerTwo = new PlayerTwo("O", conditionalType);
+            players.add(new PlayerOne(character, type));
+            players.add(new PlayerTwo("O", conditionalType));
         } else {
-            playerTwo = new PlayerTwo("O", type);
-            playerOne = new PlayerOne(character, conditionalType);
+            players.add(new PlayerTwo("O", type));
+            players.add(new PlayerOne(character, conditionalType));
         }
 
-        return Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
+        return players;
     }
 
     /**
