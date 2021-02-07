@@ -116,10 +116,10 @@ public final class BoardManager {
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return menuPrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return menuPrompt(scanner); // Recursively call itself
         }
 
@@ -190,10 +190,10 @@ public final class BoardManager {
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return modePrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return modePrompt(scanner); // Recursively call itself
         }
 
@@ -266,10 +266,10 @@ public final class BoardManager {
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return characterPrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return characterPrompt(scanner); // Recursively call itself
         }
 
@@ -426,13 +426,13 @@ public final class BoardManager {
             movePrompt(scanner, boardController);
 
         } catch (NumberFormatException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         }
     }
@@ -574,7 +574,7 @@ public final class BoardManager {
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
             sceneRouter(scanner, menuOptionsInner);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("\n" + e.getLocalizedMessage());
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
             sceneRouter(scanner, menuOptionsInner);
         }
