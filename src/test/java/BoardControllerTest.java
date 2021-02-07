@@ -1,6 +1,7 @@
 import edu.bu.met.CS622.JicJacJoe.Board.Board;
 import edu.bu.met.CS622.JicJacJoe.Board.BoardController;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
@@ -19,14 +20,15 @@ class BoardControllerTest {
 
     PlayerOne playerOne;
     PlayerTwo playerTwo;
-    Map<Player.PlayerKeys, Player> players;
+    PlayerList<Player> players;
     BoardController boardController;
 
     @BeforeEach
     void setUp() {
-        playerOne = new PlayerOne("X", Player.PlayerType.USER);
-        playerTwo = new PlayerTwo("O", Player.PlayerType.USER);
-        players = Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
+        players = new PlayerList<>();
+        players.add(new PlayerOne("X", Player.PlayerType.USER));
+        players.add(new PlayerTwo("O", Player.PlayerType.CPU));
+
         boardController = new BoardController(players, Board.BoardModes.PVC);
     }
 
