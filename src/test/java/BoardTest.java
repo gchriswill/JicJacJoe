@@ -1,5 +1,6 @@
 import edu.bu.met.CS622.JicJacJoe.Board.Board;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import org.junit.jupiter.api.AfterEach;
@@ -7,20 +8,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-
 class BoardTest {
 
     Board board;
-    PlayerOne playerOne;
-    PlayerTwo playerTwo;
-    Map<Player.PlayerKeys, Player> players;
+    PlayerList<Player> players;
 
     @BeforeEach
     void setUp() {
-        playerOne = new PlayerOne("X", Player.PlayerType.USER);
-        playerTwo = new PlayerTwo("O", Player.PlayerType.USER);
-        players = Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
+        players = new PlayerList<>();
+        players.add(new PlayerOne("X", Player.PlayerType.USER));
+        players.add(new PlayerTwo("O", Player.PlayerType.CPU));
+
         board = new Board(players, Board.BoardModes.PVC);
     }
 
@@ -52,18 +50,16 @@ class BoardTest {
 
     @Test
     void getPlayerByKey() {
-        Assertions.assertNotNull(board.getPlayerByKey(Player.PlayerKeys.ONE));
-        Assertions.assertTrue(board.getPlayerByKey(Player.PlayerKeys.ONE) instanceof PlayerOne);
+        Assertions.assertNotNull(board.players.getPlayerByKey(Player.PlayerKeys.ONE));
+        Assertions.assertTrue(board.players.getPlayerByKey(Player.PlayerKeys.ONE) instanceof PlayerOne);
 
-        Assertions.assertNotNull(board.getPlayerByKey(Player.PlayerKeys.TWO));
-        Assertions.assertTrue(board.getPlayerByKey(Player.PlayerKeys.TWO) instanceof PlayerTwo);
+        Assertions.assertNotNull(board.players.getPlayerByKey(Player.PlayerKeys.TWO));
+        Assertions.assertTrue(board.players.getPlayerByKey(Player.PlayerKeys.TWO) instanceof PlayerTwo);
     }
 
     @AfterEach
     void tearDown() {
         board = null;
-        playerOne = null;
-        playerTwo = null;
         players = null;
     }
 }
