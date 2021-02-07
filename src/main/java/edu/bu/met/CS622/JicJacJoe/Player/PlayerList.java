@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 /**
- * A custom generic class that inherits from ArrayList
+ * A custom generic class that inherits from ArrayList to reuse some of its functionality.
  * This class is intended to maintain a collection of all types of players that inherits from Player class.
  * @param <P> The type of the items in the collection
  */
