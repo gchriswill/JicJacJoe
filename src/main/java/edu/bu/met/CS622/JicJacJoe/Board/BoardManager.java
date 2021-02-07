@@ -495,9 +495,7 @@ public final class BoardManager {
                     movePrompt(scanner, boardController);
                 }
 
-                case LOAD -> {
-                    loadSession(scanner);
-                }
+                case LOAD -> loadSession(scanner);
 
                 case CREDITS -> {
                     displayCredits();
@@ -543,7 +541,7 @@ public final class BoardManager {
         Board.BoardModes mode;
         Player.PlayerKeys turn;
         Map<Player.PlayerKeys, Player> players;
-        String rawBoard = "";
+        String rawBoard;
 
         try {
             JsonReader getLocalJsonFile = new JsonReader(new FileReader("saved.jicjacjoe"));
@@ -575,8 +573,8 @@ public final class BoardManager {
 
     public static Map<Player.PlayerKeys, Player> loadCharacters(String character, Player.PlayerType type) {
 
-        PlayerOne playerOne = null;
-        PlayerTwo playerTwo = null;
+        PlayerOne playerOne;
+        PlayerTwo playerTwo;
         Player.PlayerType conditionalType = type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER;
 
         if (character.trim().equalsIgnoreCase("x")) {
