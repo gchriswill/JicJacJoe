@@ -1,5 +1,5 @@
-import edu.bu.met.CS622.JicJacJoe.Player.Player;
-import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
+package edu.bu.met.CS622.JicJacJoe.Player;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

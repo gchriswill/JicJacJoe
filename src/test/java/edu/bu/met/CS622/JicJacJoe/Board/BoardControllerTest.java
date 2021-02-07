@@ -1,5 +1,5 @@
-import edu.bu.met.CS622.JicJacJoe.Board.Board;
-import edu.bu.met.CS622.JicJacJoe.Board.BoardController;
+package edu.bu.met.CS622.JicJacJoe.Board;
+
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
