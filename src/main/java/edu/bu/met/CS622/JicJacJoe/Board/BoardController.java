@@ -226,7 +226,7 @@ public class BoardController {
 
     /**
      * The function that finally executes a computer's move by adding/replacing the current value at a specific location in the board object.
-     * @return Returns the integers in which the value was added/replaced in the board obejct
+     * @return Returns the integers in which the value was added/replaced in the board object
      */
     public Integer performComputerMove() {
 

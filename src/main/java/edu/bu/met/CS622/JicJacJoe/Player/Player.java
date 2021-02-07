@@ -43,7 +43,7 @@ public abstract class Player {
     // Enum for identifying the player type
     public enum PlayerType {USER, CPU}
 
-    // This is for module 2
+    // // This will be used in future module or removed if not necessary
 //    public ArrayList<Integer> getLocations() {
 //        return locations;
 //    }
@@ -52,7 +52,7 @@ public abstract class Player {
     // This enum is used for the keys of a Map
     public enum PlayerKeys {ONE, TWO}
 
-    // This is for module 2
+    // // This will be used in future module or removed if not necessary
 //    public Integer getCurrentLocation() {
 //
 //        if (locations.isEmpty()) {

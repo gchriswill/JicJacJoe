@@ -126,5 +126,6 @@ public class Board {
     }
 
     // The enum for identifying the game modes
+    @SuppressWarnings("unused")
     public enum BoardModes {PVC, PVP}
 }
