@@ -2,8 +2,7 @@ package edu.bu.met.CS622.JicJacJoe.Board;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
-import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
-import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -17,8 +16,10 @@ public class Board {
 
     // The board mode object
     private final BoardModes boardMode;
+
     // The current player that is performing a move
     public Player.PlayerKeys playerTurn = Player.PlayerKeys.ONE;
+
     // A Map for mapping the values of the game board in text,
     // making programmatic setter/getter access easy.
     public Map<Integer, String> boardData = new HashMap<>() {{
@@ -32,10 +33,10 @@ public class Board {
         put(8, " 8");
         put(9, " 9");
     }};
-    // The player one object
-    private PlayerOne playerOne;
-    // The player two object
-    private PlayerTwo playerTwo;
+
+    // The custom players one list object
+    public PlayerList<Player> players;
+
     // A property for checking if the board has processed the first move
     private boolean boardFirstMove = true;
 
@@ -44,9 +45,8 @@ public class Board {
      * @param players The players for the game
      * @param mode The mode of the game
      */
-    public Board(Map<Player.PlayerKeys, Player> players, BoardModes mode) {
-        this.playerOne = (PlayerOne) players.get(Player.PlayerKeys.ONE); // down casting
-        this.playerTwo = (PlayerTwo) players.get(Player.PlayerKeys.TWO); // down casting
+    public Board(PlayerList<Player> players, BoardModes mode) {
+        this.players = players;
         this.boardMode = mode;
     }
 
@@ -102,27 +102,9 @@ public class Board {
         }
     }
 
-    /**
-     * The function to get the current player by passing Player Key
-     * @param key The key to access the current player
-     * @return Returns the current player object
-     */
-    public Player getPlayerByKey(Player.PlayerKeys key) {
-
-        Player player = null;
-
-        switch (key) {
-            case ONE -> player = this.playerOne;
-            case TWO -> player = this.playerTwo;
-        }
-
-        return player;
-    }
-
     // Resets the board with default values
     public void resetBoard() {
-        this.playerOne = null;
-        this.playerTwo = null;
+        this.players.clear();
         boardData = new HashMap<>() {{
             put(1, " 1");
             put(2, " 2");
