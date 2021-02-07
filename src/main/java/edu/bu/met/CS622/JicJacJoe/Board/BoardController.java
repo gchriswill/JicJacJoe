@@ -1,10 +1,10 @@
 package edu.bu.met.CS622.JicJacJoe.Board;
 
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public class BoardController {
      * @param players The 2 player objects for the game session
      * @param mode The mode of the game session. Should be PvC or PvP
      */
-    public BoardController(Map<Player.PlayerKeys, Player> players, Board.BoardModes mode) {
+    public BoardController(PlayerList<Player> players, Board.BoardModes mode) {
         this.board = new Board(players, mode);
     }
 
@@ -111,7 +111,7 @@ public class BoardController {
 
     // Gets the current player from the board object
     public Player getCurrentPlayer() {
-        return this.board.getPlayerByKey(this.board.playerTurn);
+        return this.board.players.getPlayerByKey(this.board.playerTurn);
     }
 
     /**
