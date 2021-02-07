@@ -10,6 +10,7 @@ import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -566,6 +567,12 @@ public final class BoardManager {
 
             movePrompt(scanner, boardController);
 
+        } catch (FileNotFoundException e) {
+            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("Jic jac Joe couldn't find any game session saved.");
+            System.out.println("A game session can be saved by sending a `save` command during a game session.");
+            BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+            sceneRouter(scanner, menuOptionsInner);
         } catch (Exception e) {
             e.printStackTrace();
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
