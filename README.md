@@ -46,11 +46,11 @@ The purposes of this repo are:
 **Term:** Spring-O1, 2021  
 **Project:** Jic-Jac-Joe  
 **Instructor:** [Eric J. Braude](https://www.bu.edu/met/profile/eric-j-braude/)  
-**Facilitator:** Kuang-Jung Huang, "Michael"
+**Facilitator:** Kuang-Jung Huang, "Michael"  
 **Institution:** [Boston University's Metropolitan College](https://www.bu.edu/met/)  
 **Course:** [CS622 - Advanced Programming Techniques](http://www.bu.edu/csmet/academic-programs/courses/cs622/)  
 **Program:** [Software Development M.Sc. (MSSD)](https://www.bu.edu/met/degrees-certificates/ms-software-development/)  
-**Student:** Christopher W. Gonzalez Melendez, D.K.A. "[@gchriswill](https://github.com/gchriswill)" : Student/Engineer/Developer  
+**Student/Engineer/Developer:** Christopher W. Gonzalez Melendez, D.K.A. "[@gchriswill](https://github.com/gchriswill)"  
 
 **Website:** Jic-Jac-Joe (**Website is currently in the works and coming soon...**)  
 **Github Repository:** [Jic-Jac-Joe's Repository](https://github.com/gchriswill/JicJacJoe)
