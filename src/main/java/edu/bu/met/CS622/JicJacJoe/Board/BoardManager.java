@@ -497,11 +497,20 @@ public final class BoardManager {
         if (menuOptions != null) {
             switch (menuOptions) {
                 case START -> {
-                    Board.BoardModes mode = modePrompt(scanner);
+                    @Nullable Board.BoardModes mode = modePrompt(scanner);
                     @Nullable PlayerList<Player> players = characterPrompt(scanner);
 
-                    BoardController boardController = startGameSession(players, mode);
-                    movePrompt(scanner, boardController);
+                    if (mode != null && players != null && !players.isEmpty()) {
+                        BoardController boardController = startGameSession(players, mode);
+                        movePrompt(scanner, boardController);
+                    } else {
+
+                        System.out.println("\nJic jac Joe encountered an internal error.");
+                        System.out.println("Please try starting a game session again...");
+
+                        BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                        sceneRouter(scanner, menuOptionsInner);
+                    }
                 }
 
                 case LOAD -> loadSession(scanner);
