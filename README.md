@@ -178,7 +178,8 @@ To run the game in the CLI (a Unix Bash shell), navigate to the working director
 Don't forget to add your local path to the command.
 Also, don't forget to build the project first...
 
-Please note that player-VS-player mode will not be available for module 1.
+Please note that player-VS-player `PvP` mode is not available right now,  
+but it will in a future release. 
 
 There are 3 convenient commands available at different stages:  
 
