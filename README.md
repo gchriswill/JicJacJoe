@@ -95,10 +95,6 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 - [JUnit](https://junit.org/junit5/)
 - [JetBrains Annotations](https://github.com/JetBrains/java-annotations)
 
-### _Test Devices_:
-
-- MacBook Pro (15 Inch, 2017)
-
 ### _Development Devices_:
 
 - MacBook Pro (15 Inch, 2017)
@@ -107,6 +103,10 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 - CLI
 - IDE's Console
+
+### _Test Devices_:
+
+- MacBook Pro (15 Inch, 2017)  
 
 ### _Google Drive Location_:
 
@@ -182,7 +182,7 @@ Please note that player-VS-player mode will not be available for module 1.
 
 There are 3 convenient commands available at different stages:  
 
-- `Save` Available during a current game session  
+- `Save` Available only during a current game session  
 - `Restart` Available at all time except in the main menu
 - `Exit` Available during all times
 
