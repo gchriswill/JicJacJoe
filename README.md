@@ -57,7 +57,7 @@ The purposes of this repo are:
 
 ### _Current Status_:
 
-**Performing development for module 2 requirements**
+**Performing development for module 3 requirements**
 
 ### _Branch Structure/Strategy_:
 
