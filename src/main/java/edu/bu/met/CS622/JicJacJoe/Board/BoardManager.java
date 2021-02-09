@@ -157,6 +157,8 @@ public final class BoardManager {
         try {
             String stringInput = scanner.next();
 
+            // TODO: Needs refactoring and abstraction to new BoardManager.specializedCommand() function
+            // TODO: Needs refactoring and abstraction to new BoardManager.SpecializedCommands enum
             if (stringInput.trim().equalsIgnoreCase("exit")) {
                 System.exit(0);
                 return null;
@@ -234,6 +236,8 @@ public final class BoardManager {
 
             String stringInput = scanner.next();
 
+            // TODO: Needs refactoring and abstraction to new BoardManager.specializedCommand() function
+            // TODO: Needs refactoring and abstraction to new BoardManager.SpecializedCommands enum
             if (stringInput.trim().equalsIgnoreCase("exit")) {
                 System.exit(0);
                 return null;
@@ -371,6 +375,8 @@ public final class BoardManager {
 
             String stringInput = scanner.next();
 
+            // TODO: Needs refactoring and abstraction to new BoardManager.specializedCommand() function
+            // TODO: Needs refactoring and abstraction to new BoardManager.SpecializedCommands enum
             if (stringInput.trim().equalsIgnoreCase("exit")) {
                 endGameSession(boardController);
                 return;
@@ -524,6 +530,7 @@ public final class BoardManager {
 
         Board board = boardController.getBoard();
 
+        // TODO: Needs refactoring and abstraction to new BoardController.getBoardJson() function
         Map<String, String> sessionMap = new HashMap<>() {{
             put("savedMode", board.getBoardMode().toString());
             put("savedTurn", board.playerTurn.toString());
@@ -557,10 +564,13 @@ public final class BoardManager {
         String rawBoard;
 
         try {
+
             JsonReader getLocalJsonFile = new JsonReader(new FileReader("saved.jicjacjoe"));
             Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
 
             Map<String, String> jsonMap1 = new Gson().fromJson(getLocalJsonFile, TokenTypeOut);
+
+            // TODO: Needs refactoring and abstraction to new BoardController.startGameSession(Map<String, String> jsonMap) function
             Player.PlayerType playerType = Player.PlayerType.valueOf(jsonMap1.get("savedType"));
             players = loadCharacters(jsonMap1.get("savedCharacter"), playerType);
 
