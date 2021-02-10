@@ -3,4 +3,9 @@ os: linux
 dist: xenial
 jdk:
   - oraclejdk15
+# whitelist
+branches:
+  only:
+    - release/*
+    - module*
 
