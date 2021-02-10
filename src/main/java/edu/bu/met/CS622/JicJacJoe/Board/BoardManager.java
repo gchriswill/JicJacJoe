@@ -51,6 +51,25 @@ public final class BoardManager {
     }
 
     /**
+     * A function to display the credits scene of the game
+     */
+    public static void displayCredits() {
+
+        System.out.println("\n" + gameTitle);
+
+        System.out.println("\tGame Credits");
+        System.out.println("\t------------");
+        System.out.println("\tTerm: Spring-O1, 2021");
+        System.out.println("\tProject: Jic-Jac-Joe");
+        System.out.println("\tInstructor: Eric J. Braude");
+        System.out.println("\tFacilitator: Kuang-Jung Huang, A.K.A. \"Michael\"");
+        System.out.println("\tInstitution: Boston University's Metropolitan College");
+        System.out.println("\tCourse: CS622 - Advanced Programming Techniques");
+        System.out.println("\tProgram: Software Development M.S. (MSSD)");
+        System.out.println("\tStudent: Christopher W. Gonzalez Melendez, D.K.A. \"gchriswill\" : Student/Engineer/Developer\n\n");
+    }
+
+    /**
      * A function to display the save confirmation message to the console
      */
     public static void displaySaved() {
@@ -470,63 +489,6 @@ public final class BoardManager {
     }
 
     /**
-     * A function to display the credits scene of the game
-     */
-    public static void displayCredits() {
-
-        System.out.println("\n" + gameTitle);
-
-        System.out.println("\tGame Credits");
-        System.out.println("\t------------");
-        System.out.println("\tTerm: Spring-O1, 2021");
-        System.out.println("\tProject: Jic-Jac-Joe");
-        System.out.println("\tInstructor: Eric J. Braude");
-        System.out.println("\tFacilitator: Kuang-Jung Huang, A.K.A. \"Michael\"");
-        System.out.println("\tInstitution: Boston University's Metropolitan College");
-        System.out.println("\tCourse: CS622 - Advanced Programming Techniques");
-        System.out.println("\tProgram: Software Development M.S. (MSSD)");
-        System.out.println("\tStudent: Christopher W. Gonzalez Melendez, D.K.A. \"gchriswill\" : Student/Engineer/Developer\n\n");
-    }
-
-    /**
-     * A function to route the process, based on user selection
-     * @param scanner The object used to collect the user's input
-     * @param menuOptions The object to be used to help distributing code blocks for each process' route
-     */
-    public static void sceneRouter(Scanner scanner, @Nullable BoardManager.MenuOptions menuOptions) {
-        if (menuOptions != null) {
-            switch (menuOptions) {
-                case START -> {
-                    @Nullable Board.BoardModes mode = modePrompt(scanner);
-                    @Nullable PlayerList<Player> players = characterPrompt(scanner);
-
-                    if (mode != null && players != null && !players.isEmpty()) {
-                        BoardController boardController = startGameSession(players, mode);
-                        movePrompt(scanner, boardController);
-                    } else {
-
-                        System.out.println("\nJic jac Joe encountered an internal error.");
-                        System.out.println("Please try starting a game session again...");
-
-                        BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
-                        sceneRouter(scanner, menuOptionsInner);
-                    }
-                }
-
-                case LOAD -> loadSession(scanner);
-
-                case CREDITS -> {
-                    displayCredits();
-                    BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
-                    sceneRouter(scanner, menuOptionsInner);
-                }
-
-                case EXIT -> System.exit(0);
-            }
-        }
-    }
-
-    /**
      * A function to save a current game session from a given BoardController object
      * The game data is saved as raw JSON string to a file with custom file extension `.jicjacjoe`
      * @param boardController The BoardController object to save the current game session from
@@ -629,6 +591,44 @@ public final class BoardManager {
         }
 
         return players;
+    }
+
+    /**
+     * A function to route the process, based on user selection
+     * @param scanner The object used to collect the user's input
+     * @param menuOptions The object to be used to help distributing code blocks for each process' route
+     */
+    public static void sceneRouter(Scanner scanner, @Nullable BoardManager.MenuOptions menuOptions) {
+        if (menuOptions != null) {
+            switch (menuOptions) {
+                case START -> {
+                    @Nullable Board.BoardModes mode = modePrompt(scanner);
+                    @Nullable PlayerList<Player> players = characterPrompt(scanner);
+
+                    if (mode != null && players != null && !players.isEmpty()) {
+                        BoardController boardController = startGameSession(players, mode);
+                        movePrompt(scanner, boardController);
+                    } else {
+
+                        System.out.println("\nJic jac Joe encountered an internal error.");
+                        System.out.println("Please try starting a game session again...");
+
+                        BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                        sceneRouter(scanner, menuOptionsInner);
+                    }
+                }
+
+                case LOAD -> loadSession(scanner);
+
+                case CREDITS -> {
+                    displayCredits();
+                    BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                    sceneRouter(scanner, menuOptionsInner);
+                }
+
+                case EXIT -> System.exit(0);
+            }
+        }
     }
 
     /**
