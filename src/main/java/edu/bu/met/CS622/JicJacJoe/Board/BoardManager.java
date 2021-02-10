@@ -4,12 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +38,6 @@ public final class BoardManager {
      ░   ░    ░   ░ ░          ░   ░        ░   ░ ░          ░   ░      ░ ░  ░   ░     
     """;
 
-    // Menu options enumeration
-    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
-
     // Restricted constructor
     private BoardManager() {}
 
@@ -47,6 +48,25 @@ public final class BoardManager {
 
         System.out.println("\nWelcome to Jic Jac Joe game!\n");
         System.out.println(gameTitle);
+    }
+
+    /**
+     * A function to display the credits scene of the game
+     */
+    public static void displayCredits() {
+
+        System.out.println("\n" + gameTitle);
+
+        System.out.println("\tGame Credits");
+        System.out.println("\t------------");
+        System.out.println("\tTerm: Spring-O1, 2021");
+        System.out.println("\tProject: Jic-Jac-Joe");
+        System.out.println("\tInstructor: Eric J. Braude");
+        System.out.println("\tFacilitator: Kuang-Jung Huang, A.K.A. \"Michael\"");
+        System.out.println("\tInstitution: Boston University's Metropolitan College");
+        System.out.println("\tCourse: CS622 - Advanced Programming Techniques");
+        System.out.println("\tProgram: Software Development M.S. (MSSD)");
+        System.out.println("\tStudent: Christopher W. Gonzalez Melendez, D.K.A. \"gchriswill\" : Student/Engineer/Developer\n\n");
     }
 
     /**
@@ -115,10 +135,10 @@ public final class BoardManager {
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return menuPrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return menuPrompt(scanner); // Recursively call itself
         }
 
@@ -156,6 +176,8 @@ public final class BoardManager {
         try {
             String stringInput = scanner.next();
 
+            // TODO: Needs refactoring and abstraction to new BoardManager.specializedCommand() function
+            // TODO: Needs refactoring and abstraction to new BoardManager.SpecializedCommands enum
             if (stringInput.trim().equalsIgnoreCase("exit")) {
                 System.exit(0);
                 return null;
@@ -189,10 +211,10 @@ public final class BoardManager {
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return modePrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return modePrompt(scanner); // Recursively call itself
         }
 
@@ -204,8 +226,8 @@ public final class BoardManager {
      * @param scanner The object used to collect the user's input
      * @return Returns the player objects wrapped in a dictionary
      */
-    @SuppressWarnings({"TryWithIdenticalCatches", "ConstantConditions"})
-    public static @Nullable Map<Player.PlayerKeys, Player> characterPrompt(Scanner scanner) {
+    @SuppressWarnings({"TryWithIdenticalCatches"})
+    public static @Nullable PlayerList<Player> characterPrompt(Scanner scanner) {
 
         /*
          * INTENT: The main intent of this function is to collect the character chosen by the player;
@@ -227,13 +249,14 @@ public final class BoardManager {
         System.out.println("\nPlease choose the game character you'd like to play with: X or O");
         System.out.println("IMPORTANT NOTE: X always has the first turn... \uD83D\uDE09");
 
-        PlayerOne playerOne = null;
-        PlayerTwo playerTwo = null;
+        PlayerList<Player> players = new PlayerList<>();
 
         try {
 
             String stringInput = scanner.next();
 
+            // TODO: Needs refactoring and abstraction to new BoardManager.specializedCommand() function
+            // TODO: Needs refactoring and abstraction to new BoardManager.SpecializedCommands enum
             if (stringInput.trim().equalsIgnoreCase("exit")) {
                 System.exit(0);
                 return null;
@@ -250,33 +273,31 @@ public final class BoardManager {
 
                 // Case for selection PvC from the game modes
                 case "x" -> {
-                    playerOne = new PlayerOne("X", Player.PlayerType.USER);
-                    playerTwo = new PlayerTwo("O", Player.PlayerType.CPU);
+                    players.add(new PlayerOne("X", Player.PlayerType.USER));
+                    players.add(new PlayerTwo("O", Player.PlayerType.CPU));
                 }
 
                 // Case for selection PvP from the game modes
                 case "o" -> {
-                    playerOne = new PlayerOne("X", Player.PlayerType.CPU);
-                    playerTwo = new PlayerTwo("O", Player.PlayerType.USER);
+                    players.add(new PlayerOne("X", Player.PlayerType.CPU));
+                    players.add(new PlayerTwo("O", Player.PlayerType.USER));
                 }
             }
 
-            if (playerOne != null && playerTwo != null) {
-                return Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
+            if (!players.isEmpty()) {
+                return players;
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return characterPrompt(scanner); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             return characterPrompt(scanner); // Recursively call itself
         }
 
         return null;
     }
-
-
 
     /**
      * A function for populating a prompt asking for the player's move value
@@ -373,6 +394,8 @@ public final class BoardManager {
 
             String stringInput = scanner.next();
 
+            // TODO: Needs refactoring and abstraction to new BoardManager.specializedCommand() function
+            // TODO: Needs refactoring and abstraction to new BoardManager.SpecializedCommands enum
             if (stringInput.trim().equalsIgnoreCase("exit")) {
                 endGameSession(boardController);
                 return;
@@ -428,13 +451,13 @@ public final class BoardManager {
             movePrompt(scanner, boardController);
 
         } catch (NumberFormatException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("\n" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         }
     }
@@ -461,60 +484,15 @@ public final class BoardManager {
      * @param mode The selected and validated game mode
      * @return Returns the object containing all the non-view business logic
      */
-    public static BoardController startGameSession(Map<Player.PlayerKeys, Player> players, Board.BoardModes mode) {
+    public static BoardController startGameSession(PlayerList<Player> players, Board.BoardModes mode) {
         return new BoardController(players, mode);
     }
 
     /**
-     * A function to display the credits scene of the game
+     * A function to save a current game session from a given BoardController object
+     * The game data is saved as raw JSON string to a file with custom file extension `.jicjacjoe`
+     * @param boardController The BoardController object to save the current game session from
      */
-    public static void displayCredits() {
-
-        System.out.println("\n" + gameTitle);
-
-        System.out.println("\tGame Credits");
-        System.out.println("\t------------");
-        System.out.println("\tTerm: Spring-O1, 2021");
-        System.out.println("\tProject: Jic-Jac-Joe");
-        System.out.println("\tInstructor: Eric J. Braude");
-        System.out.println("\tFacilitator: Kuang-Jung Huang, A.K.A. \"Michael\"");
-        System.out.println("\tInstitution: Boston University's Metropolitan College");
-        System.out.println("\tCourse: CS622 - Advanced Programming Techniques");
-        System.out.println("\tProgram: Software Development M.S. (MSSD)");
-        System.out.println("\tStudent: Christopher W. Gonzalez Melendez, D.K.A. \"gchriswill\" : Student/Engineer/Developer\n\n");
-    }
-
-    /**
-     * A function to route the process, based on user selection
-     * @param scanner The object used to collect the user's input
-     * @param menuOptions The object to be used to help distributing code blocks for each process' route
-     */
-    public static void sceneRouter(Scanner scanner, @Nullable BoardManager.MenuOptions menuOptions) {
-        if (menuOptions != null) {
-            switch (menuOptions) {
-                case START -> {
-                    Board.BoardModes mode = modePrompt(scanner);
-                    Map<Player.PlayerKeys, Player> players = characterPrompt(scanner);
-
-                    BoardController boardController = startGameSession(players, mode);
-                    movePrompt(scanner, boardController);
-                }
-
-                case LOAD -> {
-                    loadSession(scanner);
-                }
-
-                case CREDITS -> {
-                    displayCredits();
-                    BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
-                    sceneRouter(scanner, menuOptionsInner);
-                }
-
-                case EXIT -> System.exit(0);
-            }
-        }
-    }
-
     @SuppressWarnings("rawtypes")
     public static void saveSession(BoardController boardController) {
 
@@ -523,6 +501,7 @@ public final class BoardManager {
 
         Board board = boardController.getBoard();
 
+        // TODO: Needs refactoring and abstraction to new BoardController.getBoardJson() function
         Map<String, String> sessionMap = new HashMap<>() {{
             put("savedMode", board.getBoardMode().toString());
             put("savedTurn", board.playerTurn.toString());
@@ -543,18 +522,26 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function to load a saved game session from a given scanner object
+     * The game session if loaded from raw JSON string data in a file with custom file extension `.jicjacjoe`
+     * @param scanner The scanner object to load the game session from
+     */
     public static void loadSession(Scanner scanner) {
 
         Board.BoardModes mode;
         Player.PlayerKeys turn;
-        Map<Player.PlayerKeys, Player> players;
-        String rawBoard = "";
+        PlayerList<Player> players;
+        String rawBoard;
 
         try {
+
             JsonReader getLocalJsonFile = new JsonReader(new FileReader("saved.jicjacjoe"));
             Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
 
             Map<String, String> jsonMap1 = new Gson().fromJson(getLocalJsonFile, TokenTypeOut);
+
+            // TODO: Needs refactoring and abstraction to new BoardController.startGameSession(Map<String, String> jsonMap) function
             Player.PlayerType playerType = Player.PlayerType.valueOf(jsonMap1.get("savedType"));
             players = loadCharacters(jsonMap1.get("savedCharacter"), playerType);
 
@@ -571,28 +558,77 @@ public final class BoardManager {
 
             movePrompt(scanner, boardController);
 
+        } catch (FileNotFoundException e) {
+            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("Jic jac Joe couldn't find any game session saved.");
+            System.out.println("A game session can be saved by sending a `save` command during a game session.");
+            BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+            sceneRouter(scanner, menuOptionsInner);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("\n" + e.getLocalizedMessage());
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
             sceneRouter(scanner, menuOptionsInner);
         }
     }
 
-    @SuppressWarnings({"DuplicatedCode", "DuplicateExpressions"})
-    public static Map<Player.PlayerKeys, Player> loadCharacters(String character, Player.PlayerType type) {
+    /**
+     * A function to load the players objects from given string characters and type
+     * @param character The character string to create the player object from
+     * @param type The type object for the player object
+     * @return Returns a list of player objects
+     */
+    public static PlayerList<Player> loadCharacters(String character, Player.PlayerType type) {
 
-        PlayerOne playerOne = null;
-        PlayerTwo playerTwo = null;
+        PlayerList<Player> players = new PlayerList<>();
+        Player.PlayerType conditionalType = type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER;
 
         if (character.trim().equalsIgnoreCase("x")) {
-            playerOne = new PlayerOne(character, type);
-            playerTwo = new PlayerTwo("O", type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER);
+            players.add(new PlayerOne(character, type));
+            players.add(new PlayerTwo("O", conditionalType));
         } else {
-            playerTwo = new PlayerTwo("O", type);
-            playerOne = new PlayerOne(character, type.equals(Player.PlayerType.USER) ? Player.PlayerType.CPU : Player.PlayerType.USER);
+            players.add(new PlayerTwo("O", type));
+            players.add(new PlayerOne(character, conditionalType));
         }
 
-        return Map.of(Player.PlayerKeys.ONE, playerOne, Player.PlayerKeys.TWO, playerTwo);
+        return players;
+    }
+
+    /**
+     * A function to route the process, based on user selection
+     * @param scanner The object used to collect the user's input
+     * @param menuOptions The object to be used to help distributing code blocks for each process' route
+     */
+    public static void sceneRouter(Scanner scanner, @Nullable BoardManager.MenuOptions menuOptions) {
+        if (menuOptions != null) {
+            switch (menuOptions) {
+                case START -> {
+                    @Nullable Board.BoardModes mode = modePrompt(scanner);
+                    @Nullable PlayerList<Player> players = characterPrompt(scanner);
+
+                    if (mode != null && players != null && !players.isEmpty()) {
+                        BoardController boardController = startGameSession(players, mode);
+                        movePrompt(scanner, boardController);
+                    } else {
+
+                        System.out.println("\nJic jac Joe encountered an internal error.");
+                        System.out.println("Please try starting a game session again...");
+
+                        BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                        sceneRouter(scanner, menuOptionsInner);
+                    }
+                }
+
+                case LOAD -> loadSession(scanner);
+
+                case CREDITS -> {
+                    displayCredits();
+                    BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                    sceneRouter(scanner, menuOptionsInner);
+                }
+
+                case EXIT -> System.exit(0);
+            }
+        }
     }
 
     /**
@@ -619,4 +655,7 @@ public final class BoardManager {
         BoardManager.MenuOptions menuOptions = menuPrompt(scanner);
         sceneRouter(scanner, menuOptions);
     }
+
+    // Menu options enumeration
+    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
 }

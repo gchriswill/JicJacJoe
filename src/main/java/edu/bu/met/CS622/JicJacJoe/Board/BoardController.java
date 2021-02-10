@@ -1,10 +1,10 @@
 package edu.bu.met.CS622.JicJacJoe.Board;
 
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Random;
 
@@ -23,24 +23,8 @@ public class BoardController {
      * @param players The 2 player objects for the game session
      * @param mode The mode of the game session. Should be PvC or PvP
      */
-    public BoardController(Map<Player.PlayerKeys, Player> players, Board.BoardModes mode) {
+    public BoardController(PlayerList<Player> players, Board.BoardModes mode) {
         this.board = new Board(players, mode);
-    }
-
-    // The getter for the Board object
-    public Board getBoard() {
-        return board;
-    }
-
-    // A reset function for house cleaning with a game is restarted or ended
-    public void reset() {
-        this.board.resetBoard();
-        this.board = null;
-    }
-
-    // Gets the current player from the board object
-    public Player getCurrentPlayer() {
-        return this.board.getPlayerByKey(this.board.playerTurn);
     }
 
     /**
@@ -112,6 +96,22 @@ public class BoardController {
         }
 
         return intInput;
+    }
+
+    // The getter for the Board object
+    public Board getBoard() {
+        return board;
+    }
+
+    // A reset function for house cleaning with a game is restarted or ended
+    public void reset() {
+        this.board.resetBoard();
+        this.board = null;
+    }
+
+    // Gets the current player from the board object
+    public Player getCurrentPlayer() {
+        return this.board.players.getPlayerByKey(this.board.playerTurn);
     }
 
     /**
@@ -226,7 +226,7 @@ public class BoardController {
 
     /**
      * The function that finally executes a computer's move by adding/replacing the current value at a specific location in the board object.
-     * @return Returns the integers in which the value was added/replaced in the board obejct
+     * @return Returns the integers in which the value was added/replaced in the board object
      */
     public Integer performComputerMove() {
 

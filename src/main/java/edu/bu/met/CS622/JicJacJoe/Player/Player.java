@@ -10,22 +10,13 @@ import java.util.ArrayList;
 @SuppressWarnings({"CommentedOutCode", "MismatchedQueryAndUpdateOfCollection"})
 public abstract class Player {
 
-    // Enum for identifying the player type
-    public enum PlayerType {USER, CPU}
-
-    // Enum for keys fo the players
-    // This enum is used for the keys of a Map
-    public enum PlayerKeys {ONE, TWO}
-
-    // To hold the value of enum for identifying the type
-    public PlayerType playerType;
-
     // The string character of the player.
     // This character should be X or O
     private final String character;
-
     // The list of all the locations the player has chosen over the lifecycle of the game session
     private final ArrayList<Integer> locations;
+    // To hold the value of enum for identifying the type
+    public PlayerType playerType;
 
     // The constructor of the Player class.
     // Requires 2 default parameters
@@ -45,16 +36,23 @@ public abstract class Player {
         return false;
     }
 
-    // This is for module 2
-//    public ArrayList<Integer> getLocations() {
-//        return locations;
-//    }
-
     public void addLocation(Integer location) {
         locations.add(location);
     }
 
-    // This is for module 2
+    // Enum for identifying the player type
+    public enum PlayerType {USER, CPU}
+
+    // // This will be used in future module or removed if not necessary
+//    public ArrayList<Integer> getLocations() {
+//        return locations;
+//    }
+
+    // Enum for keys fo the players
+    // This enum is used for the keys of a Map
+    public enum PlayerKeys {ONE, TWO}
+
+    // // This will be used in future module or removed if not necessary
 //    public Integer getCurrentLocation() {
 //
 //        if (locations.isEmpty()) {

@@ -2,8 +2,7 @@ package edu.bu.met.CS622.JicJacJoe.Board;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
-import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
-import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
+import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -15,20 +14,8 @@ import java.util.Map;
  */
 public class Board {
 
-    // The enum for identifying the game modes
-    public enum BoardModes {PVC, PVP}
-
-    // The player one object
-    private PlayerOne playerOne;
-
-    // The player two object
-    private PlayerTwo playerTwo;
-
     // The board mode object
     private final BoardModes boardMode;
-
-    // A property for checking if the board has processed the first move
-    private boolean boardFirstMove = true;
 
     // The current player that is performing a move
     public Player.PlayerKeys playerTurn = Player.PlayerKeys.ONE;
@@ -46,6 +33,22 @@ public class Board {
         put(8, " 8");
         put(9, " 9");
     }};
+
+    // The custom players one list object
+    public PlayerList<Player> players;
+
+    // A property for checking if the board has processed the first move
+    private boolean boardFirstMove = true;
+
+    /**
+     * The constructor of the Board object
+     * @param players The players for the game
+     * @param mode The mode of the game
+     */
+    public Board(PlayerList<Player> players, BoardModes mode) {
+        this.players = players;
+        this.boardMode = mode;
+    }
 
 //    Custom Game board made of text with ASCII art pattern.
 //    This string serves as graphical interface for the game.
@@ -81,17 +84,6 @@ public class Board {
     // This will be used in future module or removed if not necessary
 //    public Board() {}
 
-    /**
-     * The constructor of the Board object
-     * @param players The players for the game
-     * @param mode The mode of the game
-     */
-    public Board(Map<Player.PlayerKeys, Player> players, BoardModes mode) {
-        this.playerOne = (PlayerOne) players.get(Player.PlayerKeys.ONE); // down casting
-        this.playerTwo = (PlayerTwo) players.get(Player.PlayerKeys.TWO); // down casting
-        this.boardMode = mode;
-    }
-
     // Gets the current board mode
     public BoardModes getBoardMode() {
         return boardMode;
@@ -110,27 +102,9 @@ public class Board {
         }
     }
 
-    /**
-     * The function to get the current player by passing Player Key
-     * @param key The key to access the current player
-     * @return Returns the current player object
-     */
-    public Player getPlayerByKey(Player.PlayerKeys key) {
-
-        Player player = null;
-
-        switch (key) {
-            case ONE -> player = this.playerOne;
-            case TWO -> player = this.playerTwo;
-        }
-
-        return player;
-    }
-
     // Resets the board with default values
     public void resetBoard() {
-        this.playerOne = null;
-        this.playerTwo = null;
+        this.players.clear();
         boardData = new HashMap<>() {{
             put(1, " 1");
             put(2, " 2");
@@ -150,4 +124,8 @@ public class Board {
         Type gsonType = new TypeToken<HashMap>(){}.getType();
         return gson.toJson(boardData, gsonType);
     }
+
+    // The enum for identifying the game modes
+    @SuppressWarnings("unused")
+    public enum BoardModes {PVC, PVP}
 }
