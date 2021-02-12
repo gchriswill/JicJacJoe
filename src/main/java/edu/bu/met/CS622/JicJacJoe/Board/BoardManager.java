@@ -517,9 +517,10 @@ public final class BoardManager {
             fos.write(sessionString.getBytes(StandardCharsets.UTF_8));
             fos.close();
 
-        } catch (IOException e) {
-            System.out.println(e.getLocalizedMessage());
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("Jic jac Joe encountered an error while saving the current game session.");
+            System.out.println("Please try again during your next game session.");
         }
     }
 
@@ -565,6 +566,11 @@ public final class BoardManager {
             System.out.println("\n" + e.getLocalizedMessage());
             System.out.println("Jic jac Joe couldn't find any game session saved.");
             System.out.println("A game session can be saved by sending a `save` command during a game session.");
+            BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+            sceneRouter(scanner, menuOptionsInner);
+        } catch (IOException e) {
+            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("Jic jac Joe encountered an error while retrieving your saved game session.");
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
             sceneRouter(scanner, menuOptionsInner);
         } catch (Exception e) {
