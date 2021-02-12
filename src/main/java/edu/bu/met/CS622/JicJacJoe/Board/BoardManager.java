@@ -541,6 +541,7 @@ public final class BoardManager {
             File file = new File("jicjacjoe.dat");
             FileInputStream fis = new FileInputStream(file);
             String getLocalJsonFile = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
+            fis.close();
 
             Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
             Map<String, String> jsonMap1 = new Gson().fromJson(getLocalJsonFile, TokenTypeOut);
