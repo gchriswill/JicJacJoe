@@ -2,7 +2,6 @@ package edu.bu.met.CS622.JicJacJoe.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
@@ -10,11 +9,9 @@ import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -513,9 +510,13 @@ public final class BoardManager {
         String sessionString = gson.toJson(sessionMap, gsonType);
 
         try {
-            FileWriter myWriter = new FileWriter("saved.jicjacjoe");
-            myWriter.write(sessionString);
-            myWriter.close();
+
+            File file = new File("jicjacjoe.dat");
+            FileOutputStream fos = new FileOutputStream(file);
+
+            fos.write(sessionString.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
             e.printStackTrace();
@@ -536,9 +537,11 @@ public final class BoardManager {
 
         try {
 
-            JsonReader getLocalJsonFile = new JsonReader(new FileReader("saved.jicjacjoe"));
-            Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
+            File file = new File("jicjacjoe.dat");
+            FileInputStream fis = new FileInputStream(file);
+            String getLocalJsonFile = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
 
+            Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
             Map<String, String> jsonMap1 = new Gson().fromJson(getLocalJsonFile, TokenTypeOut);
 
             // TODO: Needs refactoring and abstraction to new BoardController.startGameSession(Map<String, String> jsonMap) function
