@@ -153,7 +153,7 @@ For more information, please visit the Project and Wiki of this repository.
 
 - [x] Milestone 1 (Skipped due to late delivery)
 - [x] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
-- [ ] [Milestone 3](https://github.com/gchriswill/JicJacJoe/milestone/2)
+- [x] [Milestone 3](https://github.com/gchriswill/JicJacJoe/milestone/2)
 - [ ] Milestone 4
 - [ ] Milestone 5
 - [ ] Milestone 6
