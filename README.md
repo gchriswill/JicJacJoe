@@ -70,8 +70,7 @@ The purposes of this repo are:
     - module6: All requirements for 622's Module 6 (GitHub Milestone 6)
     - feature/*: Branches with feature prefix will contain specific individual and single feature
     - release/*: Branches with release prefix will contain the requirements of a specific module completed and ready for testing  
-    
-
+  
 Each branch contains the specific requirements for the state module and completes the designated GitHub Milestone.  
 Each GitHub Milestone track all the respective GitHub Issues/requirements for the module/branch.  
 
@@ -93,16 +92,16 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 - [Gson](https://github.com/google/gson)
 - [JUnit](https://junit.org/junit5/)
-- [JetBrains Annotations](https://github.com/JetBrains/java-annotations)
-
-### _Development Devices_:
-
-- MacBook Pro (15 Inch, 2017)
+- [JetBrains Annotations](https://github.com/JetBrains/java-annotations)  
 
 ### _Deployment Targets_:
 
 - CLI
-- IDE's Console
+- IDE's Console  
+
+### _Development Devices_:
+
+- MacBook Pro (15 Inch, 2017)
 
 ### _Test Devices_:
 
@@ -123,7 +122,7 @@ The project's documents folder includes:
 
 # User Stories:  
 
-- Jic-Jac-Joe should be able to run in IDE’s console and/or the CLI
+- Jic-Jac-Joe should be able to run in an IDE’s console and/or the CLI
 - Jic-Jac-Joe should be able to welcome the players when ran initially
 - Jic-Jac-Joe should be able to be played in 1 game mode: PvC (PvP for later)
 - Jic-Jac-Joe should be able to start a new game session
@@ -135,7 +134,7 @@ The project's documents folder includes:
 - Jic-Jac-Joe should be able to display error to user if it receives unintended input
 - Jic-Jac-Joe should be able to display guidance to user if an error was encountered
 
-# Feature Sets:
+# Features Set:
 
 | Core          | Support       | Supplemental  |
 | ------------- | ------------- | ------------- |
