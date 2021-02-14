@@ -35,6 +35,17 @@ public final class BoardManager {
      ░   ░    ░   ░ ░          ░   ░        ░   ░ ░          ░   ░      ░ ░  ░   ░     
     """;
 
+    /**
+     * The Serializable inner class for to save the game's data
+     */
+    public static class BoardSession implements Serializable {
+        public String json;
+
+        public BoardSession(String json) {
+            this.json = json;
+        }
+    }
+
     // Restricted constructor
     private BoardManager() {}
 
