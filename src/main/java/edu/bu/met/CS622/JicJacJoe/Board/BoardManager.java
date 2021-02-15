@@ -626,8 +626,8 @@ public final class BoardManager {
             players.add(new PlayerOne(character, type));
             players.add(new PlayerTwo("O", conditionalType));
         } else {
-            players.add(new PlayerTwo("O", type));
-            players.add(new PlayerOne(character, conditionalType));
+            players.add(new PlayerOne("X", conditionalType));
+            players.add(new PlayerTwo(character, type));
         }
 
         return players;
