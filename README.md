@@ -66,8 +66,8 @@ The purposes of this repo are:
     - module2: All requirements for 622's Module 2 (Needs recovery from CS622-Module-2 Release v0.2)
     - [module3](https://github.com/gchriswill/JicJacJoe/tree/module3): All requirements for 622's Module 3 (GitHub Milestone 3)
     - [module4](https://github.com/gchriswill/JicJacJoe/tree/module4): All requirements for 622's Module 4 (GitHub Milestone 4)
-    - [module5](): All requirements for 622's Module 5 (GitHub Milestone 5)
-    - [module6](): All requirements for 622's Module 6 (GitHub Milestone 6)
+    - module5: All requirements for 622's Module 5 (GitHub Milestone 5)
+    - module6: All requirements for 622's Module 6 (GitHub Milestone 6)
     - feature/*: Branches with feature prefix will contain specific individual and single feature
     - release/*: Branches with release prefix will contain the requirements of a specific module completed and ready for testing  
   
