@@ -63,11 +63,11 @@ The purposes of this repo are:
 
 - master: The released source code for grading
     - module1: All requirements for 622's Module 1 (Skipped due to late delivery)
-    - module2: All requirements for 622's Module 2 (GitHub Milestone 2)
-    - module3: All requirements for 622's Module 3 (GitHub Milestone 3)
-    - module4: All requirements for 622's Module 4 (GitHub Milestone 4)
-    - module5: All requirements for 622's Module 5 (GitHub Milestone 5)
-    - module6: All requirements for 622's Module 6 (GitHub Milestone 6)
+    - module2: All requirements for 622's Module 2 (Needs recovery from CS622-Module-2 Release v0.2)
+    - [module3](https://github.com/gchriswill/JicJacJoe/tree/module3): All requirements for 622's Module 3 (GitHub Milestone 3)
+    - [module4](https://github.com/gchriswill/JicJacJoe/tree/module4): All requirements for 622's Module 4 (GitHub Milestone 4)
+    - [module5](): All requirements for 622's Module 5 (GitHub Milestone 5)
+    - [module6](): All requirements for 622's Module 6 (GitHub Milestone 6)
     - feature/*: Branches with feature prefix will contain specific individual and single feature
     - release/*: Branches with release prefix will contain the requirements of a specific module completed and ready for testing  
   
@@ -153,7 +153,7 @@ For more information, please visit the Project and Wiki of this repository.
 - [x] Milestone 1 (Skipped due to late delivery)
 - [x] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
 - [x] [Milestone 3](https://github.com/gchriswill/JicJacJoe/milestone/2)
-- [ ] Milestone 4
+- [ ] [Milestone 4](https://github.com/gchriswill/JicJacJoe/milestone/3)
 - [ ] Milestone 5
 - [ ] Milestone 6
 
