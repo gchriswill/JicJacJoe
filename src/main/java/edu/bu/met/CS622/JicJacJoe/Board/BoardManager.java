@@ -7,6 +7,7 @@ import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
+import edu.bu.met.CS622.JicJacJoe.Resources.SaveSessionErrorException;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -458,13 +459,16 @@ public final class BoardManager {
             movePrompt(scanner, boardController);
 
         } catch (NumberFormatException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
-        } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println("\n" + e.getLocalizedMessage());
+        } catch (SaveSessionErrorException e) { // Catch a specific Exception and prints out the exception's message
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
+            movePrompt(scanner, boardController); // Recursively call itself
+        } catch (Exception e) { // Catch the base Exception and prints out the exception's message
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         }
     }
@@ -503,7 +507,7 @@ public final class BoardManager {
      * @param boardController The BoardController object to save the current game session from
      */
     @SuppressWarnings("rawtypes")
-    public static void saveSession(BoardController boardController) {
+    public static void saveSession(BoardController boardController) throws SaveSessionErrorException {
 
         Gson gson = new Gson();
         Type gsonType = new TypeToken<HashMap>(){}.getType();
@@ -537,9 +541,9 @@ public final class BoardManager {
             fos.close();
 
         } catch (Exception e) {
-            System.out.println("\n" + e.getLocalizedMessage());
-            System.out.println("Jic jac Joe encountered an error while saving the current game session.");
+            System.out.println("\nJic jac Joe encountered an error while saving the current game session.");
             System.out.println("Please try again during your next game session.");
+            throw new SaveSessionErrorException(e.getLocalizedMessage());
         }
     }
 
