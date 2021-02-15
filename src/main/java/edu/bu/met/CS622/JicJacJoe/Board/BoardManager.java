@@ -497,7 +497,9 @@ public final class BoardManager {
 
     /**
      * A function to save a current game session from a given BoardController object
-     * The game data is saved as raw JSON string to a file with custom file extension `.jicjacjoe`
+     * The game data is saved as a BoardSession serializable object containing raw JSON string with the game's data,
+     * and then is serialized for to be written into a `jicjacjoe.dat` file.
+     *
      * @param boardController The BoardController object to save the current game session from
      */
     @SuppressWarnings("rawtypes")
@@ -525,7 +527,10 @@ public final class BoardManager {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+            // The serializable object to write
             BoardSession boardSession = new BoardSession(sessionString);
+
+            // Object write to output stream
             oos.writeObject(boardSession);
 
             oos.close();
@@ -540,7 +545,9 @@ public final class BoardManager {
 
     /**
      * A function to load a saved game session from a given scanner object
-     * The game session if loaded from raw JSON string data in a file with custom file extension `.jicjacjoe`
+     * The game session is loaded from reading a BoardSession serializable object containing raw JSON string data,
+     * stored in a `jicjacjoe.dat` file.
+     *
      * @param scanner The scanner object to load the game session from
      */
     public static void loadSession(Scanner scanner) {
@@ -556,6 +563,7 @@ public final class BoardManager {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
+            // Object read from input stream
             BoardSession boardSession = (BoardSession) ois.readObject();
 
             ois.close();
