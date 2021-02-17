@@ -8,6 +8,14 @@
       <inspection_tool class="SubjectLimit" enabled="true" level="WARNING" enabled_by_default="true" />
     </profile>
   </component>
+  <component name="GithubSharedProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="module.*" />
+        <option value="release\/.*" />
+      </list>
+    </option>
+  </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
