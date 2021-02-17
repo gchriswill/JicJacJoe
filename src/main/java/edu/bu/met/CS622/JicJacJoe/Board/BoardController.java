@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
 import java.util.Random;
+import java.util.stream.Stream;
 
 /**
  * The BoardController class is responsible for managing all business logic that does not intersect with user interactions.
@@ -199,16 +200,20 @@ public class BoardController {
 
     /**
      * The function to validate if there are no more moves available in the current game session
+     * This technique uses the Stream API from an Collection of values extracted from the Board's current data.
+     * This technique also uses the Filter API with a Lambda expression that includes the Matches API with RegEx to filter out
+     * the values that do not match number character occurrence.
+     *
      * @return Returns ture/false base on the game board locations availability
      */
     public boolean validateOutOfMoves() {
 
-        // Looping through all the locations in the board and attempting to match the values at numbers with RegEx
-        // Returns false if there is a match
-        for (String v : board.boardData.values()) if (v.trim().matches("^-?\\d+$")) return false;
+        // Loops and filter the locations in the board by attempting to match the number values with RegEx
+        Stream<String> stringStream = board.boardData.values().stream().filter(v -> v.trim().matches("^-?\\d+$"));
 
-        // Returns ture if there is all items did not matched with a number as string type
-        return true;
+        // Returns ture if the resulting filtered array is empty
+        // Returns false if the resulting filtered array contains any matches against numbers
+        return stringStream.toArray(String[] :: new ).length == 0;
     }
 
     // This is for future module or might be removed if unnecessary

@@ -2,18 +2,15 @@ package edu.bu.met.CS622.JicJacJoe.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerTwo;
 import edu.bu.met.CS622.JicJacJoe.Resources.IllegalUserInputException;
+import edu.bu.met.CS622.JicJacJoe.Resources.SaveSessionErrorException;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +34,17 @@ public final class BoardManager {
      ░ ░ ░  ░ ▒ ░ ░            ░ ░ ░    ░   ▒   ░            ░ ░ ░  ░ ░ ░ ▒      ░
      ░   ░    ░   ░ ░          ░   ░        ░   ░ ░          ░   ░      ░ ░  ░   ░     
     """;
+
+    /**
+     * The Serializable inner class for to save the game's data
+     */
+    public static class BoardSession implements Serializable {
+        public String json;
+
+        public BoardSession(String json) {
+            this.json = json;
+        }
+    }
 
     // Restricted constructor
     private BoardManager() {}
@@ -451,13 +459,16 @@ public final class BoardManager {
             movePrompt(scanner, boardController);
 
         } catch (NumberFormatException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
-            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
-        } catch (Exception e) { // Catch base Exception and prints out the exception's message
-            System.out.println("\n" + e.getLocalizedMessage());
+        } catch (SaveSessionErrorException e) { // Catch a specific Exception and prints out the exception's message
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
+            movePrompt(scanner, boardController); // Recursively call itself
+        } catch (Exception e) { // Catch the base Exception and prints out the exception's message
+            System.out.println("\n" + e.getClass() + "::" + e.getLocalizedMessage());
             movePrompt(scanner, boardController); // Recursively call itself
         }
     }
@@ -490,11 +501,13 @@ public final class BoardManager {
 
     /**
      * A function to save a current game session from a given BoardController object
-     * The game data is saved as raw JSON string to a file with custom file extension `.jicjacjoe`
+     * The game data is saved as a BoardSession serializable object containing raw JSON string with the game's data,
+     * and then is serialized for to be written into a `jicjacjoe.dat` file.
+     *
      * @param boardController The BoardController object to save the current game session from
      */
     @SuppressWarnings("rawtypes")
-    public static void saveSession(BoardController boardController) {
+    public static void saveSession(BoardController boardController) throws SaveSessionErrorException {
 
         Gson gson = new Gson();
         Type gsonType = new TypeToken<HashMap>(){}.getType();
@@ -513,18 +526,32 @@ public final class BoardManager {
         String sessionString = gson.toJson(sessionMap, gsonType);
 
         try {
-            FileWriter myWriter = new FileWriter("saved.jicjacjoe");
-            myWriter.write(sessionString);
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println(e.getLocalizedMessage());
-            e.printStackTrace();
+
+            File file = new File("jicjacjoe.dat");
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            // The serializable object to write
+            BoardSession boardSession = new BoardSession(sessionString);
+
+            // Object write to output stream
+            oos.writeObject(boardSession);
+
+            oos.close();
+            fos.close();
+
+        } catch (Exception e) {
+            System.out.println("\nJic jac Joe encountered an error while saving the current game session.");
+            System.out.println("Please try again during your next game session.");
+            throw new SaveSessionErrorException(e.getLocalizedMessage());
         }
     }
 
     /**
      * A function to load a saved game session from a given scanner object
-     * The game session if loaded from raw JSON string data in a file with custom file extension `.jicjacjoe`
+     * The game session is loaded from reading a BoardSession serializable object containing raw JSON string data,
+     * stored in a `jicjacjoe.dat` file.
+     *
      * @param scanner The scanner object to load the game session from
      */
     public static void loadSession(Scanner scanner) {
@@ -536,10 +563,18 @@ public final class BoardManager {
 
         try {
 
-            JsonReader getLocalJsonFile = new JsonReader(new FileReader("saved.jicjacjoe"));
-            Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
+            File file = new File("jicjacjoe.dat");
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-            Map<String, String> jsonMap1 = new Gson().fromJson(getLocalJsonFile, TokenTypeOut);
+            // Object read from input stream
+            BoardSession boardSession = (BoardSession) ois.readObject();
+
+            ois.close();
+            fis.close();
+
+            Type TokenTypeOut = new TypeToken<Map<String, String>>(){}.getType();
+            Map<String, String> jsonMap1 = new Gson().fromJson(boardSession.json, TokenTypeOut);
 
             // TODO: Needs refactoring and abstraction to new BoardController.startGameSession(Map<String, String> jsonMap) function
             Player.PlayerType playerType = Player.PlayerType.valueOf(jsonMap1.get("savedType"));
@@ -564,6 +599,11 @@ public final class BoardManager {
             System.out.println("A game session can be saved by sending a `save` command during a game session.");
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
             sceneRouter(scanner, menuOptionsInner);
+        } catch (IOException e) {
+            System.out.println("\n" + e.getLocalizedMessage());
+            System.out.println("Jic jac Joe encountered an error while retrieving your saved game session.");
+            BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+            sceneRouter(scanner, menuOptionsInner);
         } catch (Exception e) {
             System.out.println("\n" + e.getLocalizedMessage());
             BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
@@ -586,8 +626,8 @@ public final class BoardManager {
             players.add(new PlayerOne(character, type));
             players.add(new PlayerTwo("O", conditionalType));
         } else {
-            players.add(new PlayerTwo("O", type));
-            players.add(new PlayerOne(character, conditionalType));
+            players.add(new PlayerOne("X", conditionalType));
+            players.add(new PlayerTwo(character, type));
         }
 
         return players;
