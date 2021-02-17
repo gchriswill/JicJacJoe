@@ -57,7 +57,7 @@ The purposes of this repo are:
 
 ### _Current Status_:
 
-**Performing development for module 4 requirements**
+**[Released v0.0.4](https://github.com/gchriswill/JicJacJoe/releases/tag/v0.0.4) for module 4 requirements**
 
 ### _Branch Structure/Strategy_:
 
