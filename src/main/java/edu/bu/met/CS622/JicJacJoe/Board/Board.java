@@ -63,6 +63,9 @@ public class Board {
     // A property for checking if the board has processed the first move
     private boolean boardFirstMove = true;
 
+    // A property for tracking when the current session was loaded from a saved game
+    public boolean isCurrentSessionFromLoad = false;
+
     /**
      * The constructor of the Board object
      * @param players The players for the game
