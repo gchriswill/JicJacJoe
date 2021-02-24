@@ -13,25 +13,29 @@ import java.util.HashMap;
  */
 public class Board {
 
+    /**
+     * A inner class for providing a new collection type that implements
+     * thread safe synchronized reads/writes
+     */
     public static class BoardMap extends HashMap<Integer, String> {
 
         @Override
         public String get(Object key) {
-            synchronized (this) {
+            synchronized (this) { // Synchronized Technique for reads
                 return super.get(key);
             }
         }
 
         @Override
         public String put(Integer key, String value) {
-            synchronized (this) {
+            synchronized (this) { // Synchronized Technique for writes
                 return super.put(key, value);
             }
         }
 
         @Override
         public String replace(Integer key, String value) {
-            synchronized (this) {
+            synchronized (this) { // Synchronized Technique for replaces/writes
                 return super.replace(key, value);
             }
         }

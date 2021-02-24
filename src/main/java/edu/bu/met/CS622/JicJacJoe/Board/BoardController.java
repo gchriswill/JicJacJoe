@@ -16,6 +16,10 @@ import java.util.stream.Stream;
 @SuppressWarnings({"CommentedOutCode", "RedundantSuppression"})
 public class BoardController {
 
+    /**
+     * A class that implements Runnable, to help apply concurrency to the CPU Move feature
+     * The class serves as a wrapper object to execute code for a Thread object.
+     */
     public class ComputerMovePerformer implements Runnable {
 
         Integer intResult = 0;
@@ -252,7 +256,12 @@ public class BoardController {
     }
 
     /**
-     * The function that finally executes a computer's move by adding/replacing the current value at a specific location in the board object.
+     * The function that finally executes a computer's move by adding/replacing the
+     * current value at a specific location in the board object.
+     *
+     * Also, this function implements concurrency by sending a Runnable object to a Thread for
+     * to be executed with the highest priority by the system's default thread pool.
+     *
      * @return Returns the integers in which the value was added/replaced in the board object
      */
     public Integer performComputerMove() {
@@ -264,8 +273,8 @@ public class BoardController {
         try {
             threadPerformer.join();
         } catch (InterruptedException e) {
-            // TODO: Needs to be improved with better printed details
-            e.printStackTrace();
+            System.out.println("A critical error occurred with the computer was performing it's move.");
+            System.out.println(e.getLocalizedMessage());
             return performComputerMove();
         }
 
