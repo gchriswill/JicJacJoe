@@ -17,17 +17,23 @@ public class Board {
 
         @Override
         public String get(Object key) {
-            return super.get(key);
+            synchronized (this) {
+                return super.get(key);
+            }
         }
 
         @Override
         public String put(Integer key, String value) {
-            return super.put(key, value);
+            synchronized (this) {
+                return super.put(key, value);
+            }
         }
 
         @Override
         public String replace(Integer key, String value) {
-            return super.replace(key, value);
+            synchronized (this) {
+                return super.replace(key, value);
+            }
         }
     }
 
