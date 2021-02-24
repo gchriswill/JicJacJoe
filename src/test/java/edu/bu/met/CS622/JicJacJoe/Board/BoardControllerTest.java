@@ -10,9 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @SuppressWarnings("UnnecessaryLocalVariable")
 class BoardControllerTest {
 
@@ -90,7 +87,7 @@ class BoardControllerTest {
     void validateWinner() {
 
         // 1, 2, 3
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -109,7 +106,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -129,7 +126,7 @@ class BoardControllerTest {
 
         // 4, 5, 6
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -148,7 +145,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -168,7 +165,7 @@ class BoardControllerTest {
 
         // 7, 8, 9
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -187,7 +184,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -207,7 +204,7 @@ class BoardControllerTest {
 
         // 1, 4, 7
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -226,7 +223,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -246,7 +243,7 @@ class BoardControllerTest {
 
         // 2, 5, 8
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -265,7 +262,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -285,7 +282,7 @@ class BoardControllerTest {
 
         // 3, 6, 9
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -304,7 +301,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -324,7 +321,7 @@ class BoardControllerTest {
 
         // 1, 5, 9
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -343,7 +340,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -363,7 +360,7 @@ class BoardControllerTest {
 
         // 3, 5, 7
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -382,7 +379,7 @@ class BoardControllerTest {
         Assertions.assertTrue(boardController.validateWinner());
 
         boardController.getBoard().boardData.clear();
-        boardController.getBoard().boardData = new HashMap<>() {{
+        boardController.getBoard().boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -404,7 +401,7 @@ class BoardControllerTest {
     @Test
     void validateOutOfMoves() {
 
-        Map<Integer, String> boardData = new HashMap<>() {{
+        Board.BoardMap boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -437,7 +434,7 @@ class BoardControllerTest {
     @Test
     void performPlayerMove() {
 
-        Map<Integer, String> boardData = new HashMap<>() {{
+        Board.BoardMap boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
@@ -459,7 +456,7 @@ class BoardControllerTest {
     @Test
     void performComputerMove() {
 
-        Map<Integer, String> boardData = new HashMap<>() {{
+        Board.BoardMap boardData = new Board.BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
