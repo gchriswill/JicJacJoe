@@ -16,6 +16,28 @@ import java.util.stream.Stream;
 @SuppressWarnings({"CommentedOutCode", "RedundantSuppression"})
 public class BoardController {
 
+    public class ComputerMovePerformer implements Runnable {
+
+        Integer intResult = 0;
+
+        @Override
+        public void run() {
+
+            Integer location = getRandomMove();
+
+            String character = board.boardData.get(location).trim();
+
+            // Conditional statement check for the computer move with character X or O
+            if (character.equalsIgnoreCase("X") || character.equalsIgnoreCase("O")) {
+                intResult = performComputerMove();
+            } else {
+                board.boardData.replace(location, " " + getCurrentPlayer().getCharacter());
+            }
+
+            intResult = location;
+        }
+    }
+
     // The board object of the game
     private Board board;
 
@@ -234,19 +256,20 @@ public class BoardController {
      * @return Returns the integers in which the value was added/replaced in the board object
      */
     public Integer performComputerMove() {
+        ComputerMovePerformer movePerformer = new ComputerMovePerformer();
+        Thread threadPerformer = new Thread(movePerformer, "BoardController.ComputerMovePerformer");
+        threadPerformer.setPriority(Thread.MAX_PRIORITY);
+        threadPerformer.start();
 
-        Integer location = getRandomMove();
-
-        String character = this.board.boardData.get(location).trim();
-
-        // Conditional statement check for the computer move with character X or O
-        if (character.equalsIgnoreCase("X") || character.equalsIgnoreCase("O")) {
-            performComputerMove();
-        } else {
-            this.board.boardData.replace(location, " " + this.getCurrentPlayer().getCharacter());
+        try {
+            threadPerformer.join();
+        } catch (InterruptedException e) {
+            // TODO: Needs to be improved with better printed details
+            e.printStackTrace();
+            return performComputerMove();
         }
 
-        return location;
+        return movePerformer.intResult;
     }
 
     /**
