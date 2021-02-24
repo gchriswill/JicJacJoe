@@ -1,18 +1,35 @@
 package edu.bu.met.CS622.JicJacJoe.Board;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
-
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The Board class is responsible for the I/O to the underlying data structure that holds the game board data.
  *
  */
 public class Board {
+
+    public static class BoardMap extends HashMap<Integer, String> {
+
+        @Override
+        public String get(Object key) {
+            return super.get(key);
+        }
+
+        @Override
+        public String put(Integer key, String value) {
+            return super.put(key, value);
+        }
+
+        @Override
+        public String replace(Integer key, String value) {
+            return super.replace(key, value);
+        }
+    }
 
     // The board mode object
     private final BoardModes boardMode;
@@ -22,7 +39,7 @@ public class Board {
 
     // A Map for mapping the values of the game board in text,
     // making programmatic setter/getter access easy.
-    public Map<Integer, String> boardData = new HashMap<>() {{
+    public BoardMap boardData = new BoardMap() {{
         put(1, " 1");
         put(2, " 2");
         put(3, " 3");
@@ -105,7 +122,7 @@ public class Board {
     // Resets the board with default values
     public void resetBoard() {
         this.players.clear();
-        boardData = new HashMap<>() {{
+        boardData = new BoardMap() {{
             put(1, " 1");
             put(2, " 2");
             put(3, " 3");
