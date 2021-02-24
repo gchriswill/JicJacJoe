@@ -584,8 +584,8 @@ public final class BoardManager {
             mode = Board.BoardModes.valueOf(jsonMap1.get("savedMode"));
             rawBoard = jsonMap1.get("boardData");
 
-            Type TokenTypeOutIn = new TypeToken<Map<Integer, String>>(){}.getType();
-            Map<Integer, String> jsonMap2 = new Gson().fromJson(rawBoard, TokenTypeOutIn);
+            Type TokenTypeOutIn = new TypeToken<Board.BoardMap>(){}.getType();
+            Board.BoardMap jsonMap2 = new Gson().fromJson(rawBoard, TokenTypeOutIn);
 
             BoardController boardController = startGameSession(players, mode);
             boardController.getBoard().playerTurn = turn;
