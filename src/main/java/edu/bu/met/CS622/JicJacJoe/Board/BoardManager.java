@@ -367,6 +367,7 @@ public final class BoardManager {
                 if (isWinningMove) {
                     winnerPrompt(player);
                     System.out.println(boardController.getBoard().getASCIIBoard());
+                    dumpSessionStorage(boardController);
                     endGameSession(boardController);
                     restart(scanner);
                     return;
@@ -378,6 +379,7 @@ public final class BoardManager {
                 if (boardController.validateOutOfMoves()) {
                     System.out.println("The board has ran out of locations and no winner has been declared!");
                     System.out.println("Restarting the game...");
+                    dumpSessionStorage(boardController);
                     endGameSession(boardController);
                     restart(scanner);
                     return;
@@ -436,6 +438,7 @@ public final class BoardManager {
             if (isWinningMove) {
                 winnerPrompt(player);
                 System.out.println(boardController.getBoard().getASCIIBoard());
+                dumpSessionStorage(boardController);
                 endGameSession(boardController);
                 restart(scanner);
                 return;
@@ -447,6 +450,7 @@ public final class BoardManager {
             if (boardController.validateOutOfMoves()) {
                 System.out.println("The board has ran out of locations and no winner has been declared!");
                 System.out.println("Restarting the game...");
+                dumpSessionStorage(boardController);
                 endGameSession(boardController);
                 restart(scanner);
                 return;
@@ -584,12 +588,14 @@ public final class BoardManager {
             mode = Board.BoardModes.valueOf(jsonMap1.get("savedMode"));
             rawBoard = jsonMap1.get("boardData");
 
-            Type TokenTypeOutIn = new TypeToken<Map<Integer, String>>(){}.getType();
-            Map<Integer, String> jsonMap2 = new Gson().fromJson(rawBoard, TokenTypeOutIn);
+            Type TokenTypeOutIn = new TypeToken<Board.BoardMap>(){}.getType();
+            Board.BoardMap jsonMap2 = new Gson().fromJson(rawBoard, TokenTypeOutIn);
 
             BoardController boardController = startGameSession(players, mode);
             boardController.getBoard().playerTurn = turn;
             boardController.getBoard().boardData = jsonMap2;
+
+            boardController.getBoard().isCurrentSessionFromLoad = true;
 
             movePrompt(scanner, boardController);
 
@@ -694,6 +700,18 @@ public final class BoardManager {
     public static void restart(Scanner scanner) {
         BoardManager.MenuOptions menuOptions = menuPrompt(scanner);
         sceneRouter(scanner, menuOptions);
+    }
+
+    /**
+     * A function for dumping the saved data after winning or loosing
+     * @param boardController The controller containing the board object that tracks the session
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void dumpSessionStorage(BoardController boardController) {
+        if (boardController.getBoard().isCurrentSessionFromLoad) {
+            File datFile = new File("jicjacjoe.dat");
+            datFile.delete();
+        }
     }
 
     // Menu options enumeration
