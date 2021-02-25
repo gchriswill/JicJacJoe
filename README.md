@@ -4,7 +4,7 @@
 
 ### Jic Jac Joe 
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue.svg?style=flat )
+![Version](https://img.shields.io/badge/version-v0.0.5-blue.svg?style=flat )
 ![Platform](https://img.shields.io/badge/platform-CLI-blue.svg?style=flat )
 [![Build Status](https://www.travis-ci.com/gchriswill/JicJacJoe.svg?token=8efyA1QMsv1rNCzSQkn1&branch=master)](https://www.travis-ci.com/gchriswill/JicJacJoe)
 
