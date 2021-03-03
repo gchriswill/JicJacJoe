@@ -46,6 +46,9 @@ public final class BoardManager {
         }
     }
 
+    // Menu options enumeration
+    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
+
     // Restricted constructor
     private BoardManager() {}
 
@@ -714,6 +717,4 @@ public final class BoardManager {
         }
     }
 
-    // Menu options enumeration
-    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
 }
