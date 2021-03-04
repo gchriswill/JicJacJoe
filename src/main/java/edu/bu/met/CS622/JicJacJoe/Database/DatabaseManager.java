@@ -1,8 +1,16 @@
 package edu.bu.met.CS622.JicJacJoe.Database;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import edu.bu.met.CS622.JicJacJoe.Board.Board;
+import edu.bu.met.CS622.JicJacJoe.Player.Player;
+
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class for organizing and managing SQL transactions
@@ -46,8 +54,33 @@ public final class DatabaseManager {
     private Connection connection;
 
     // Restricted constructor
-    public DatabaseManager() throws SQLException {
-        this.connect();
+    public DatabaseManager() {}
+
+    @SuppressWarnings("rawtypes")
+    public static DBSession DBSession(Board board, Player currentPlayer) {
+
+        int idTimestamp = (int) -System.currentTimeMillis();
+
+        Gson gson = new Gson();
+        Type gsonType = new TypeToken<HashMap>(){}.getType();
+
+        // TODO: Needs refactoring and abstraction to new BoardController.getSessionJson() function
+        Map<String, String> sessionMap = new HashMap<>() {{
+            put("savedMode", board.getBoardMode().toString());
+            put("savedTurn", board.playerTurn.toString());
+            put("savedType", currentPlayer.playerType.toString());
+            put("savedCharacter", currentPlayer.getCharacter());
+            put("boardData", board.getBoardJson());
+        }};
+
+        String sessionString = gson.toJson(sessionMap, gsonType);
+
+        DBWinner winner = new DBWinner(idTimestamp,
+                currentPlayer.playerType.toString(),
+                currentPlayer.getLocations().size(),
+                currentPlayer.getCharacter());
+
+        return new DBSession(idTimestamp, sessionString, winner, idTimestamp);
     }
 
     public void connect() throws SQLException {
