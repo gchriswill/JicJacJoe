@@ -6,10 +6,8 @@ import edu.bu.met.CS622.JicJacJoe.Board.Board;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 
 import java.lang.reflect.Type;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -173,11 +171,11 @@ public final class DatabaseManager {
         connect();
 
         String winnersInsertion = """
-                insert into winners (winner_id, winner_type, winner_character, winner_max_turns) values (?, ?, ?, ?)
+                insert into winners (winner_id, winner_type, winner_character, winner_max_turns) values (?, ?, ?, ?);
                 """;
 
         String sessionsInsertion = """
-                insert into sessions (session_id, session_winning_timestamp, session_json, session_winner) values (?, ?, ?, ?)
+                insert into sessions (session_id, session_winning_timestamp, session_json, session_winner) values (?, ?, ?, ?);
                 """;
 
         PreparedStatement preparedWinners = connection.prepareStatement(winnersInsertion);
@@ -196,5 +194,65 @@ public final class DatabaseManager {
 
         preparedSessions.executeUpdate();
         connection.close();
+    }
+
+    public ArrayList<DBSession> queryWinners() throws SQLException {
+
+        connect();
+
+        ArrayList<DBSession> dbSessions = new ArrayList<>();
+
+        String winnersQuery = """
+                select * from winners join sessions s on winners.winner_id = s.session_winner ORDER BY winner_id DESC;
+                """;
+
+        ResultSet winnersResultSet = connection.createStatement().executeQuery(winnersQuery);
+
+        while (winnersResultSet.next()) {
+
+            DBWinner dbwinner = new DBWinner(winnersResultSet.getInt("winner_id"),
+                    winnersResultSet.getString("winner_type"),
+                    winnersResultSet.getInt("winner_max_turns"),
+                    winnersResultSet.getString("winner_character"));
+
+            DBSession dbSession = new DBSession(winnersResultSet.getInt("session_id"),
+                    winnersResultSet.getString("session_json"),
+                    dbwinner,
+                    winnersResultSet.getInt("session_winning_timestamp"));
+
+            dbSessions.add(dbSession);
+        }
+
+        winnersResultSet.close();
+        connection.close();
+
+        return dbSessions;
+    }
+
+    public String queryMostRecentWinner() throws SQLException {
+
+        connect();
+
+        String mostRecentWinner = "";
+
+        String mostRecentSessionQuery = """
+                select min(winner_id), winner_character, winner_type, winner_max_turns from winners;
+                """;
+
+        ResultSet mostRecentResultSet = connection.createStatement().executeQuery(mostRecentSessionQuery);
+
+        while (mostRecentResultSet.next()) {
+            if (mostRecentWinner.isBlank()) {
+                mostRecentWinner = "Most Recent Winner\n" +
+                        "Character: " + mostRecentResultSet.getString("winner_character") +
+                        ", Type: " + mostRecentResultSet.getString("winner_type") +
+                        ", Moves: " + mostRecentResultSet.getInt("winner_max_turns");
+            }
+        }
+
+        mostRecentResultSet.close();
+        connection.close();
+
+        return mostRecentWinner;
     }
 }
