@@ -4,7 +4,7 @@
 
 ### Jic Jac Joe 
 
-![Version](https://img.shields.io/badge/version-v0.0.5-blue.svg?style=flat )
+![Version](https://img.shields.io/badge/version-v0.0.6-blue.svg?style=flat )
 ![Platform](https://img.shields.io/badge/platform-CLI-blue.svg?style=flat )
 [![Build Status](https://www.travis-ci.com/gchriswill/JicJacJoe.svg?token=8efyA1QMsv1rNCzSQkn1&branch=master)](https://www.travis-ci.com/gchriswill/JicJacJoe)
 
@@ -57,7 +57,7 @@ The purposes of this repo are:
 
 ### _Current Status_:
 
-**Currently, an RC build with module 6 requirements is in testing and deploying process on our CI/CD pipeline**  
+**[Released v0.0.6](https://github.com/gchriswill/JicJacJoe/releases/tag/v0.0.6) for module 6 requirements**  
 
 ### _Branch Structure/Strategy_:
 
@@ -67,7 +67,7 @@ The purposes of this repo are:
     - [module3](https://github.com/gchriswill/JicJacJoe/tree/module3): All requirements for 622's Module 3 (GitHub Milestone 3)
     - [module4](https://github.com/gchriswill/JicJacJoe/tree/module4): All requirements for 622's Module 4 (GitHub Milestone 4)
     - [module5](https://github.com/gchriswill/JicJacJoe/tree/module5): All requirements for 622's Module 5 (GitHub Milestone 5)
-    - module6: All requirements for 622's Module 6 (GitHub Milestone 6)
+    - [module6](https://github.com/gchriswill/JicJacJoe/tree/module6): All requirements for 622's Module 6 (GitHub Milestone 6)
     - feature/*: Branches with feature prefix will contain specific individual and single feature
     - release/*: Branches with release prefix will contain the requirements of a specific module completed and ready for testing  
   
@@ -156,7 +156,7 @@ For more information, please visit the Project and Wiki of this repository.
 - [x] [Milestone 3](https://github.com/gchriswill/JicJacJoe/milestone/2)
 - [x] [Milestone 4](https://github.com/gchriswill/JicJacJoe/milestone/3)
 - [x] [Milestone 5](https://github.com/gchriswill/JicJacJoe/milestone/4)
-- [ ] [Milestone 6](https://github.com/gchriswill/JicJacJoe/milestone/5)
+- [x] [Milestone 6](https://github.com/gchriswill/JicJacJoe/milestone/5)
 
 --- 
 
