@@ -2,6 +2,7 @@ package edu.bu.met.CS622.JicJacJoe.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import edu.bu.met.CS622.JicJacJoe.Database.DatabaseManager;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -370,6 +372,17 @@ public final class BoardManager {
                 if (isWinningMove) {
                     winnerPrompt(player);
                     System.out.println(boardController.getBoard().getASCIIBoard());
+
+                    try {
+                        DatabaseManager databaseManager = new DatabaseManager();
+                        databaseManager.createsInitialSessionTables();
+                        DatabaseManager.DBSession dbSession = DatabaseManager.DBSession(boardController.getBoard(), player);
+                        databaseManager.insert(dbSession);
+                    } catch (SQLException e) {
+                        System.out.println("Jic jac Joe encountered an error while recording and storing this winning session.");
+                        System.out.println("Please play another and try winning again for retrying session recording");
+                    }
+
                     dumpSessionStorage(boardController);
                     endGameSession(boardController);
                     restart(scanner);
@@ -441,6 +454,12 @@ public final class BoardManager {
             if (isWinningMove) {
                 winnerPrompt(player);
                 System.out.println(boardController.getBoard().getASCIIBoard());
+
+                DatabaseManager databaseManager = new DatabaseManager();
+                databaseManager.createsInitialSessionTables();
+                DatabaseManager.DBSession dbSession = DatabaseManager.DBSession(boardController.getBoard(), player);
+                databaseManager.insert(dbSession);
+
                 dumpSessionStorage(boardController);
                 endGameSession(boardController);
                 restart(scanner);
