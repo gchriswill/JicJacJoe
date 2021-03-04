@@ -25,10 +25,10 @@ public final class DatabaseManager {
      */
     public static class DBWinner {
 
-        int id;
-        String type;
-        int maxTurns;
-        String character;
+        public int id;
+        public String type;
+        public int maxTurns;
+        public String character;
 
         public DBWinner(int id, String type, int maxTurns, String character) {
             this.id = id;
@@ -44,10 +44,10 @@ public final class DatabaseManager {
      */
     public static class DBSession {
 
-        int id;
-        String json;
-        DBWinner winner;
-        int winningTimestamp;
+        public int id;
+        public String json;
+        public DBWinner winner;
+        public int winningTimestamp;
 
         public DBSession(int id, String json, DBWinner winner, int winningTimestamp) {
             this.id = id;
@@ -243,8 +243,7 @@ public final class DatabaseManager {
 
         while (mostRecentResultSet.next()) {
             if (mostRecentWinner.isBlank()) {
-                mostRecentWinner = "Most Recent Winner\n" +
-                        "Character: " + mostRecentResultSet.getString("winner_character") +
+                mostRecentWinner = "Character: " + mostRecentResultSet.getString("winner_character") +
                         ", Type: " + mostRecentResultSet.getString("winner_type") +
                         ", Moves: " + mostRecentResultSet.getInt("winner_max_turns");
             }
