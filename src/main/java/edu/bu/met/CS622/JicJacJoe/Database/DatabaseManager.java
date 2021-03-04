@@ -21,6 +21,10 @@ import java.util.Map;
 @SuppressWarnings("FieldCanBeLocal")
 public final class DatabaseManager {
 
+    /**
+     * An inner model class for organizing the winning Player values
+     *
+     */
     public static class DBWinner {
 
         int id;
@@ -36,6 +40,10 @@ public final class DatabaseManager {
         }
     }
 
+    /**
+     * An inner model class for organizing the winning session values
+     *
+     */
     public static class DBSession {
 
         int id;
@@ -51,12 +59,22 @@ public final class DatabaseManager {
         }
     }
 
+    // The database connection URL
     private final String dbUrl = "jdbc:sqlite:jicjacjoe.sqlite";
+
+    // The connection object to use for connecting to the database
     private Connection connection;
 
-    // Restricted constructor
+    // Public Constructor
     public DatabaseManager() {}
 
+    /**
+     *  A function for collection the winning session and player values into model objects
+     *
+     * @param board The board object of the game
+     * @param currentPlayer The current winning Player object
+     * @return DBSession object with all the collected values
+     */
     @SuppressWarnings("rawtypes")
     public static DBSession DBSession(Board board, Player currentPlayer) {
 
@@ -84,6 +102,11 @@ public final class DatabaseManager {
         return new DBSession(idTimestamp, sessionString, winner, idTimestamp);
     }
 
+    /**
+     * A function for connecting to the database
+     *
+     * @throws SQLException if the connection fails for any reason
+     */
     public void connect() throws SQLException {
 
         if (connection == null) {
@@ -99,6 +122,11 @@ public final class DatabaseManager {
         }
     }
 
+    /**
+     * A function for creating the database tables required for storing the game sessions
+     *
+     * @throws SQLException if the tables creation fails for any reason
+     */
     public void createsInitialSessionTables() throws SQLException {
 
         connect();
@@ -133,6 +161,12 @@ public final class DatabaseManager {
         connection.close();
     }
 
+    /**
+     * A function for inserting data into the game's database tables
+     *
+     * @param dbSession DBSession The object to use for the data extraction into the database
+     * @throws SQLException if the table insertion fails for any reason
+     */
     @SuppressWarnings("DuplicatedCode")
     public void insert(DBSession dbSession) throws SQLException {
 
