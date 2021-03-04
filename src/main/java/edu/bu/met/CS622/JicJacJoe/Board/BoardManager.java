@@ -713,6 +713,10 @@ public final class BoardManager {
         }
     }
 
+    /**
+     * A function for displaying the historical winners' data chronologically
+     *
+     */
     private static void displayWinners() {
 
         DatabaseManager databaseManager = new DatabaseManager();
@@ -738,6 +742,10 @@ public final class BoardManager {
 
     }
 
+    /**
+     * A function to display the most recent winner's data
+     *
+     */
     private static void displayMostRecentWinner() {
 
         DatabaseManager databaseManager = new DatabaseManager();

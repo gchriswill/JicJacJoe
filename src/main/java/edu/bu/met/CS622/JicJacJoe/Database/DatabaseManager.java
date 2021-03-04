@@ -196,6 +196,12 @@ public final class DatabaseManager {
         connection.close();
     }
 
+    /**
+     * A function for retrieving historical winners' data for the database
+     *
+     * @return ArrayList with DBSession type
+     * @throws SQLException if the table query fails for any reason
+     */
     public ArrayList<DBSession> queryWinners() throws SQLException {
 
         connect();
@@ -229,6 +235,12 @@ public final class DatabaseManager {
         return dbSessions;
     }
 
+    /**
+     * A function for retrieving the most recent winner's data for the database
+     *
+     * @return String with data values appended
+     * @throws SQLException if the table query fails for any reason
+     */
     public String queryMostRecentWinner() throws SQLException {
 
         connect();
