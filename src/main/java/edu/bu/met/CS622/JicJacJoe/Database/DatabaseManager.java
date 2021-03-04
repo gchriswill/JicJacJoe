@@ -12,6 +12,36 @@ import java.sql.SQLException;
 @SuppressWarnings("FieldCanBeLocal")
 public final class DatabaseManager {
 
+    public static class DBWinner {
+
+        int id;
+        String type;
+        int maxTurns;
+        String character;
+
+        public DBWinner(int id, String type, int maxTurns, String character) {
+            this.id = id;
+            this.type = type;
+            this.maxTurns = maxTurns;
+            this.character = character;
+        }
+    }
+
+    public static class DBSession {
+
+        int id;
+        String json;
+        DBWinner winner;
+        int winningTimestamp;
+
+        public DBSession(int id, String json, DBWinner winner, int winningTimestamp) {
+            this.id = id;
+            this.json = json;
+            this.winner = winner;
+            this.winningTimestamp = winningTimestamp;
+        }
+    }
+
     private final String dbUrl = "jdbc:sqlite:jicjacjoe.sqlite";
     private Connection connection;
 
