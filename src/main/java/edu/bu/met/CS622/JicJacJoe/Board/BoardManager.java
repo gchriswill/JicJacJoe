@@ -131,6 +131,11 @@ public final class BoardManager {
                     return MenuOptions.START;
                 }
 
+                // Case load for selection from the menu options
+                case "load" -> {
+                    return MenuOptions.LOAD;
+                }
+
                 // Case credits for selection from the menu options
                 case "credits" -> {
                     return MenuOptions.CREDITS;
@@ -140,11 +145,6 @@ public final class BoardManager {
                 case "exit" -> {
                     return MenuOptions.EXIT;
                 }
-            }
-
-            // Case load for selection from the menu options
-            if (stringInput.trim().equalsIgnoreCase("load")) {
-                return MenuOptions.LOAD;
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
