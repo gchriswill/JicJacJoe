@@ -86,12 +86,13 @@ public final class DatabaseManager {
     public void connect() throws SQLException {
 
         if (connection == null) {
+
             this.connection = DriverManager.getConnection(dbUrl);
+
         } else {
 
-            if (!connection.isClosed()) {
-
-                connection.close();
+            if (connection.isClosed()) {
+                connection = null;
                 this.connection = DriverManager.getConnection(dbUrl);
             }
         }
