@@ -8,6 +8,7 @@ import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,6 +130,37 @@ public final class DatabaseManager {
 
         connection.createStatement().execute(createsTableWinnerQuery);
         connection.createStatement().execute(createsTableSessionQuery);
+        connection.close();
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    public void insert(DBSession dbSession) throws SQLException {
+
+        connect();
+
+        String winnersInsertion = """
+                insert into winners (winner_id, winner_type, winner_character, winner_max_turns) values (?, ?, ?, ?)
+                """;
+
+        String sessionsInsertion = """
+                insert into sessions (session_id, session_winning_timestamp, session_json, session_winner) values (?, ?, ?, ?)
+                """;
+
+        PreparedStatement preparedWinners = connection.prepareStatement(winnersInsertion);
+        preparedWinners.setInt(1, dbSession.winner.id);
+        preparedWinners.setString(2, dbSession.winner.type);
+        preparedWinners.setString(3, dbSession.winner.character);
+        preparedWinners.setInt(4, dbSession.winner.maxTurns);
+
+        preparedWinners.executeUpdate();
+
+        PreparedStatement preparedSessions = connection.prepareStatement(sessionsInsertion);
+        preparedSessions.setInt(1, dbSession.id);
+        preparedSessions.setInt(2, dbSession.winningTimestamp);
+        preparedSessions.setString(3, dbSession.json);
+        preparedSessions.setInt(4, dbSession.winner.id);
+
+        preparedSessions.executeUpdate();
         connection.close();
     }
 }
