@@ -43,10 +43,13 @@ public abstract class Player {
     // Enum for identifying the player type
     public enum PlayerType {USER, CPU}
 
-    // // This will be used in future module or removed if not necessary
-//    public ArrayList<Integer> getLocations() {
-//        return locations;
-//    }
+    /**
+     * A getter function for getting all the player's board captured locations
+     * @return ArrayList of integers representing the captured locations
+     */
+    public ArrayList<Integer> getLocations() {
+        return locations;
+    }
 
     // Enum for keys fo the players
     // This enum is used for the keys of a Map
