@@ -2,6 +2,7 @@ package edu.bu.met.CS622.JicJacJoe.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import edu.bu.met.CS622.JicJacJoe.Database.DatabaseManager;
 import edu.bu.met.CS622.JicJacJoe.Player.Player;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerList;
 import edu.bu.met.CS622.JicJacJoe.Player.PlayerOne;
@@ -12,6 +13,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -45,6 +48,9 @@ public final class BoardManager {
             this.json = json;
         }
     }
+
+    // Menu options enumeration
+    public enum MenuOptions {START, LOAD, CREDITS, WINNERS, EXIT}
 
     // Restricted constructor
     private BoardManager() {}
@@ -112,6 +118,7 @@ public final class BoardManager {
         System.out.println("\tStart");
         System.out.println("\tLoad");
         System.out.println("\tCredits");
+        System.out.println("\tWinners");
         System.out.println("\tExit\n");
 
         try {
@@ -126,20 +133,25 @@ public final class BoardManager {
                     return MenuOptions.START;
                 }
 
+                // Case load for selection from the menu options
+                case "load" -> {
+                    return MenuOptions.LOAD;
+                }
+
                 // Case credits for selection from the menu options
                 case "credits" -> {
                     return MenuOptions.CREDITS;
+                }
+
+                // Case winners for selection from the menu options
+                case "winners" -> {
+                    return MenuOptions.WINNERS;
                 }
 
                 // Case exit for selection from the menu options
                 case "exit" -> {
                     return MenuOptions.EXIT;
                 }
-            }
-
-            // Case load for selection from the menu options
-            if (stringInput.trim().equalsIgnoreCase("load")) {
-                return MenuOptions.LOAD;
             }
 
         } catch (IllegalUserInputException e) { // Catch a specific Exception and prints out the exception's message
@@ -367,6 +379,17 @@ public final class BoardManager {
                 if (isWinningMove) {
                     winnerPrompt(player);
                     System.out.println(boardController.getBoard().getASCIIBoard());
+
+                    try {
+                        DatabaseManager databaseManager = new DatabaseManager();
+                        databaseManager.createsInitialSessionTables();
+                        DatabaseManager.DBSession dbSession = DatabaseManager.DBSession(boardController.getBoard(), player);
+                        databaseManager.insert(dbSession);
+                    } catch (SQLException e) {
+                        System.out.println("Jic jac Joe encountered an error while recording and storing this winning session.");
+                        System.out.println("Please play another and try winning again for retrying session recording");
+                    }
+
                     dumpSessionStorage(boardController);
                     endGameSession(boardController);
                     restart(scanner);
@@ -438,6 +461,12 @@ public final class BoardManager {
             if (isWinningMove) {
                 winnerPrompt(player);
                 System.out.println(boardController.getBoard().getASCIIBoard());
+
+                DatabaseManager databaseManager = new DatabaseManager();
+                databaseManager.createsInitialSessionTables();
+                DatabaseManager.DBSession dbSession = DatabaseManager.DBSession(boardController.getBoard(), player);
+                databaseManager.insert(dbSession);
+
                 dumpSessionStorage(boardController);
                 endGameSession(boardController);
                 restart(scanner);
@@ -518,13 +547,13 @@ public final class BoardManager {
 
         Board board = boardController.getBoard();
 
-        // TODO: Needs refactoring and abstraction to new BoardController.getBoardJson() function
+        // TODO: Needs refactoring and abstraction to new BoardController.getSessionJson() function
         Map<String, String> sessionMap = new HashMap<>() {{
             put("savedMode", board.getBoardMode().toString());
             put("savedTurn", board.playerTurn.toString());
             put("savedType", boardController.getCurrentPlayer().playerType.toString());
             put("savedCharacter", boardController.getCurrentPlayer().getCharacter());
-            put("boardData", boardController.getBoard().getBoardJson());
+            put("boardData", board.getBoardJson());
         }};
 
         String sessionString = gson.toJson(sessionMap, gsonType);
@@ -672,8 +701,64 @@ public final class BoardManager {
                     sceneRouter(scanner, menuOptionsInner);
                 }
 
+                case WINNERS -> {
+                    displayMostRecentWinner();
+                    displayWinners();
+                    BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                    sceneRouter(scanner, menuOptionsInner);
+                }
+
                 case EXIT -> System.exit(0);
             }
+        }
+    }
+
+    /**
+     * A function for displaying the historical winners' data chronologically
+     *
+     */
+    private static void displayWinners() {
+
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        System.out.println("\n*** Historical Winners (Chronologically) ***");
+
+        try {
+
+            ArrayList<DatabaseManager.DBSession> dbSessions = databaseManager.queryWinners();
+
+            for (DatabaseManager.DBSession dbSession : dbSessions) {
+                String sessionWinner = "Character: " + dbSession.winner.character +
+                        ", Type: " + dbSession.winner.type +
+                        ", Moves: " + dbSession.winner.maxTurns;
+
+                System.out.println(sessionWinner);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Jic jac Joe encountered an error while retrieving the historical winners.");
+            System.out.println("Please try again after restarting the game.");
+        }
+
+    }
+
+    /**
+     * A function to display the most recent winner's data
+     *
+     */
+    private static void displayMostRecentWinner() {
+
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        System.out.println("\n*** Most Recent Winner ***");
+
+        try {
+            String mostRecentWinner = databaseManager.queryMostRecentWinner();
+            System.out.println(mostRecentWinner);
+
+        } catch (SQLException e) {
+            System.out.println("Jic jac Joe encountered an error while retrieving the most recent winner.");
+            System.out.println("Please try again after restarting the game.");
         }
     }
 
@@ -714,6 +799,4 @@ public final class BoardManager {
         }
     }
 
-    // Menu options enumeration
-    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
 }

@@ -57,7 +57,7 @@ The purposes of this repo are:
 
 ### _Current Status_:
 
-**Performing development for module 6 requirements**
+**Currently, an RC build with module 6 requirements is in testing and deploying process on our CI/CD pipeline**  
 
 ### _Branch Structure/Strategy_:
 
@@ -92,7 +92,8 @@ Each GitHub Milestone track all the respective GitHub Issues/requirements for th
 
 - [Gson](https://github.com/google/gson)
 - [JUnit](https://junit.org/junit5/)
-- [JetBrains Annotations](https://github.com/JetBrains/java-annotations)  
+- [JetBrains Annotations](https://github.com/JetBrains/java-annotations)
+- [SQLite JDBC](https://github.com/xerial/sqlite-jdbc)  
 
 ### _Deployment Targets_:
 
@@ -154,8 +155,8 @@ For more information, please visit the Project and Wiki of this repository.
 - [x] [Milestone 2](https://github.com/gchriswill/JicJacJoe/milestone/1)
 - [x] [Milestone 3](https://github.com/gchriswill/JicJacJoe/milestone/2)
 - [x] [Milestone 4](https://github.com/gchriswill/JicJacJoe/milestone/3)
-- [ ] [Milestone 5](https://github.com/gchriswill/JicJacJoe/milestone/4)
-- [ ] Milestone 6
+- [x] [Milestone 5](https://github.com/gchriswill/JicJacJoe/milestone/4)
+- [ ] [Milestone 6](https://github.com/gchriswill/JicJacJoe/milestone/5)
 
 --- 
 

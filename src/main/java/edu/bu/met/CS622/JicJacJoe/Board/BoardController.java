@@ -62,7 +62,7 @@ public class BoardController {
     public static void validateMenuInput(@NotNull String input) throws IllegalUserInputException {
 
         // Conditional statement check for the menu item selected by the player
-        if (!input.trim().equalsIgnoreCase("start") && !input.trim().equalsIgnoreCase("load") && !input.trim().equalsIgnoreCase("credits") && !input.trim().equalsIgnoreCase("exit")) {
+        if (!input.trim().equalsIgnoreCase("start") && !input.trim().equalsIgnoreCase("load") && !input.trim().equalsIgnoreCase("credits") && !input.trim().equalsIgnoreCase("winners") && !input.trim().equalsIgnoreCase("exit")) {
             throw new IllegalUserInputException("Incorrect menu option! Choose an available menu option.\nAvailable menu options: Start, Load, Credits, Exit");
         }
     }
