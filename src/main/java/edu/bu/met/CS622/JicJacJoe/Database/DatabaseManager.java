@@ -103,10 +103,10 @@ public final class DatabaseManager {
         connect();
 
         String createsTableWinnerQuery = """
-                create table session_winners
+                create table if not exists winners
                 (
                     winner_id INTEGER not null
-                        primary key autoincrement,
+                        primary key,
                     winner_character TEXT not null,
                     winner_type TEXT not null,
                     winner_max_turns INTEGER not null
@@ -114,15 +114,15 @@ public final class DatabaseManager {
                 """;
 
         String createsTableSessionQuery = """
-                create table top_ten_sessions
+                create table if not exists sessions
                 (
                     session_json TEXT not null,
                     session_id INTEGER not null
-                        primary key autoincrement,
-                    session_won_timestamp INTEGER not null
+                        primary key,
+                    session_winning_timestamp INTEGER not null
                         unique,
                     session_winner INTEGER not null
-                        references session_winners
+                        references winners
                             deferrable initially deferred
                 );
                 """;
