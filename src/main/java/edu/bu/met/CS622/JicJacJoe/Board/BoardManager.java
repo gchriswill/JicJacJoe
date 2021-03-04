@@ -521,13 +521,13 @@ public final class BoardManager {
 
         Board board = boardController.getBoard();
 
-        // TODO: Needs refactoring and abstraction to new BoardController.getBoardJson() function
+        // TODO: Needs refactoring and abstraction to new BoardController.getSessionJson() function
         Map<String, String> sessionMap = new HashMap<>() {{
             put("savedMode", board.getBoardMode().toString());
             put("savedTurn", board.playerTurn.toString());
             put("savedType", boardController.getCurrentPlayer().playerType.toString());
             put("savedCharacter", boardController.getCurrentPlayer().getCharacter());
-            put("boardData", boardController.getBoard().getBoardJson());
+            put("boardData", board.getBoardJson());
         }};
 
         String sessionString = gson.toJson(sessionMap, gsonType);
