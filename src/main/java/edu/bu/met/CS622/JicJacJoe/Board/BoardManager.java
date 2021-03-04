@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -49,7 +50,7 @@ public final class BoardManager {
     }
 
     // Menu options enumeration
-    public enum MenuOptions {START, LOAD, CREDITS, EXIT}
+    public enum MenuOptions {START, LOAD, CREDITS, WINNERS, EXIT}
 
     // Restricted constructor
     private BoardManager() {}
@@ -117,6 +118,7 @@ public final class BoardManager {
         System.out.println("\tStart");
         System.out.println("\tLoad");
         System.out.println("\tCredits");
+        System.out.println("\tWinners");
         System.out.println("\tExit\n");
 
         try {
@@ -139,6 +141,11 @@ public final class BoardManager {
                 // Case credits for selection from the menu options
                 case "credits" -> {
                     return MenuOptions.CREDITS;
+                }
+
+                // Case winners for selection from the menu options
+                case "winners" -> {
+                    return MenuOptions.WINNERS;
                 }
 
                 // Case exit for selection from the menu options
@@ -694,8 +701,56 @@ public final class BoardManager {
                     sceneRouter(scanner, menuOptionsInner);
                 }
 
+                case WINNERS -> {
+                    displayMostRecentWinner();
+                    displayWinners();
+                    BoardManager.MenuOptions menuOptionsInner = menuPrompt(scanner);
+                    sceneRouter(scanner, menuOptionsInner);
+                }
+
                 case EXIT -> System.exit(0);
             }
+        }
+    }
+
+    private static void displayWinners() {
+
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        System.out.println("\n*** Historical Winners (Chronologically) ***");
+
+        try {
+
+            ArrayList<DatabaseManager.DBSession> dbSessions = databaseManager.queryWinners();
+
+            for (DatabaseManager.DBSession dbSession : dbSessions) {
+                String sessionWinner = "Character: " + dbSession.winner.character +
+                        ", Type: " + dbSession.winner.type +
+                        ", Moves: " + dbSession.winner.maxTurns;
+
+                System.out.println(sessionWinner);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Jic jac Joe encountered an error while retrieving the historical winners.");
+            System.out.println("Please try again after restarting the game.");
+        }
+
+    }
+
+    private static void displayMostRecentWinner() {
+
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        System.out.println("\n*** Most Recent Winner ***");
+
+        try {
+            String mostRecentWinner = databaseManager.queryMostRecentWinner();
+            System.out.println(mostRecentWinner);
+
+        } catch (SQLException e) {
+            System.out.println("Jic jac Joe encountered an error while retrieving the most recent winner.");
+            System.out.println("Please try again after restarting the game.");
         }
     }
 
