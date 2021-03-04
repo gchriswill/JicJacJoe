@@ -100,6 +100,8 @@ public final class DatabaseManager {
 
     public void createsInitialSessionTables() throws SQLException {
 
+        connect();
+
         String createsTableWinnerQuery = """
                 create table session_winners
                 (
