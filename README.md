@@ -57,7 +57,7 @@ The purposes of this repo are:
 
 ### _Current Status_:
 
-**Performing development for module 6 requirements**
+**Currently, an RC build with module 6 requirements is in testing and deploying process on our CI/CD pipeline**  
 
 ### _Branch Structure/Strategy_:
 
